@@ -11,36 +11,23 @@ export const Contact = () => {
     email: '',
     phone: '',
     message: ''
-  }
+  };
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState('Send');
   const [status, setStatus] = useState({});
 
   const onFormUpdate = (category, value) => {
-      setFormDetails({
-        ...formDetails,
-        [category]: value
-      })
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setButtonText("Sending...");
-    let response = await fetch("http://localhost:5000/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(formDetails),
+    setFormDetails({
+      ...formDetails,
+      [category]: value
     });
-    setButtonText("Send");
-    let result = await response.json();
-    setFormDetails(formInitialDetails);
-    if (result.code == 200) {
-      setStatus({ succes: true, message: 'Message sent successfully'});
-    } else {
-      setStatus({ succes: false, message: 'Something went wrong, please try again later.'});
-    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Here, you can add any client-side logic you want, but the server interaction has been removed.
+    // For example, you can display a success message or perform client-side validation.
+    setStatus({ success: true, message: 'Form submitted successfully' });
   };
 
   return (
@@ -58,13 +45,13 @@ export const Contact = () => {
             <TrackVisibility>
               {({ isVisible }) =>
                 <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                <h2><b><i>Get In Touch with me at:</i></b></h2>
-                <h2>awaissajid@cyberdude.com</h2>
-               </div>}
+                  <h2><b><i>Get In Touch with me at:</i></b></h2>
+                  <h2>awaissajid@cyberdude.com</h2>
+                </div>}
             </TrackVisibility>
           </Col>
         </Row>
       </Container>
     </section>
-  )
-}
+  );
+};

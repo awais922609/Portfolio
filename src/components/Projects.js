@@ -14,7 +14,6 @@ export const Projects = () => {
 
   const projects = [
     {
-      
       description: "An advanced intrusion detection system that combines static and machine learning rules, achieving a 90% accuracy rate in anomaly detection.",
       imgUrl: projImg1,
     },
