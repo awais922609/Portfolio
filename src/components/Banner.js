@@ -9,10 +9,11 @@ export const Banner = () => {
   const [loopNum, setLoopNum] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [text, setText] = useState('');
-  const [delta, setDelta] = useState(300 - Math.random() * 100);
+  // const [delta, setDelta] = useState(300 - Math.random() * 10);
+  const [delta, setDelta] = useState(50); // Very fast typing effect
   const [index, setIndex] = useState(1);
-  const toRotate = [ "Cyber Security Consultant", "Web Developer", "Blockchain Auditor" ];
-  const period = 2000;
+  const toRotate = [ "Cyber Security Consultant", "Security Operation Analyst", "Cyber Security Researcher" ];
+  const period = 1000;
 
   useEffect(() => {
     let ticker = setInterval(() => {
