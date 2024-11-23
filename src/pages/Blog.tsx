@@ -1,32 +1,24 @@
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import BlogCard from "../components/BlogCard";
 import { Button } from "../components/ui/button";
-import { Link } from "react-router-dom";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../components/ui/dialog";
+import BlogForm from "../components/BlogForm";
 
 const Blog = () => {
-  const blogs = [
-    {
-      id: "1",
-      title: "Advanced Intrusion Detection Systems",
-      description: "Exploring the implementation of machine learning in modern IDS solutions.",
-      image: "/placeholder.svg",
-      date: "2024-03-15",
-    },
-    {
-      id: "2",
-      title: "Email Forensics Techniques",
-      description: "A deep dive into email forensics and user location tracing methodologies.",
-      image: "/placeholder.svg",
-      date: "2024-03-10",
-    },
-    {
-      id: "3",
-      title: "Automotive Security",
-      description: "Research findings on automobile hacking and virtual control systems.",
-      image: "/placeholder.svg",
-      date: "2024-03-05",
-    },
-  ];
+  const [blogs, setBlogs] = useState<any[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const storedBlogs = JSON.parse(localStorage.getItem('blogs') || '[]');
+    setBlogs(storedBlogs);
+  }, [isOpen]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -39,11 +31,17 @@ const Blog = () => {
           >
             Blog Posts
           </motion.h1>
-          <Link to="/blog/new">
-            <Button variant="outline">
-              Create New Post
-            </Button>
-          </Link>
+          <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <DialogTrigger asChild>
+              <Button>Create New Post</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Create New Blog Post</DialogTitle>
+              </DialogHeader>
+              <BlogForm onClose={() => setIsOpen(false)} />
+            </DialogContent>
+          </Dialog>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

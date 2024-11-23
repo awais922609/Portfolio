@@ -3,28 +3,17 @@ import ParticleBackground from "../components/ParticleBackground";
 import Hero from "../components/Hero";
 import BlogCard from "../components/BlogCard";
 import Experience from "../components/Experience";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Index = () => {
-  const blogs = [
-    {
-      title: "Advanced Intrusion Detection Systems",
-      description: "Exploring the implementation of machine learning in modern IDS solutions.",
-      image: "/placeholder.svg",
-      date: "2024-03-15",
-    },
-    {
-      title: "Email Forensics Techniques",
-      description: "A deep dive into email forensics and user location tracing methodologies.",
-      image: "/placeholder.svg",
-      date: "2024-03-10",
-    },
-    {
-      title: "Automotive Security",
-      description: "Research findings on automobile hacking and virtual control systems.",
-      image: "/placeholder.svg",
-      date: "2024-03-05",
-    },
-  ];
+  const navigate = useNavigate();
+  const [blogs, setBlogs] = useState<any[]>([]);
+
+  useEffect(() => {
+    const storedBlogs = JSON.parse(localStorage.getItem('blogs') || '[]');
+    setBlogs(storedBlogs.slice(0, 3)); // Only show latest 3 blogs
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -48,8 +37,8 @@ const Index = () => {
           </motion.div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogs.map((blog, index) => (
-              <BlogCard key={index} {...blog} />
+            {blogs.map((blog) => (
+              <BlogCard key={blog.id} {...blog} />
             ))}
           </div>
         </div>
