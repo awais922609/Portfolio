@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -20,16 +21,43 @@ const Hero = () => {
             Dedicated Security Engineer with expertise in implementing robust security solutions
             and conducting comprehensive security assessments.
           </p>
-          <div className="flex gap-4 justify-center">
+          
+          <div className="flex flex-col md:flex-row gap-4 justify-center items-center mt-8">
+            <motion.a
+              href="mailto:awaissajid@cyberdude.com"
+              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+              whileHover={{ scale: 1.05 }}
+            >
+              <Mail size={20} />
+              <span>awaissajid@cyberdude.com</span>
+            </motion.a>
+            <motion.a
+              href="tel:+923175830971"
+              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+              whileHover={{ scale: 1.05 }}
+            >
+              <Phone size={20} />
+              <span>+92 317 5830971</span>
+            </motion.a>
+            <motion.div
+              className="flex items-center gap-2 text-muted-foreground"
+              whileHover={{ scale: 1.05 }}
+            >
+              <MapPin size={20} />
+              <span>Islamabad, Pakistan</span>
+            </motion.div>
+          </div>
+
+          <div className="flex gap-4 justify-center mt-8">
             <a
               href="#contact"
-              className="px-6 py-3 bg-primary text-black font-medium rounded-lg hover-scale"
+              className="px-6 py-3 bg-primary text-black font-medium rounded-lg hover:scale-105 transition-transform"
             >
               Get in Touch
             </a>
             <a
               href="#projects"
-              className="px-6 py-3 bg-secondary text-white font-medium rounded-lg hover-scale"
+              className="px-6 py-3 bg-secondary text-white font-medium rounded-lg hover:scale-105 transition-transform"
             >
               View Projects
             </a>

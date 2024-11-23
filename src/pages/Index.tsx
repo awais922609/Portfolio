@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import ParticleBackground from "../components/ParticleBackground";
 import Hero from "../components/Hero";
 import BlogCard from "../components/BlogCard";
+import Experience from "../components/Experience";
 
 const Index = () => {
   const blogs = [
@@ -29,10 +30,11 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground">
       <ParticleBackground />
       <Hero />
+      <Experience />
       
       {/* Blog Section */}
-      <section className="section-padding" id="blog">
-        <div className="container mx-auto">
+      <section className="py-20" id="blog">
+        <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -54,8 +56,8 @@ const Index = () => {
       </section>
 
       {/* Quote Section */}
-      <section className="section-padding bg-secondary">
-        <div className="container mx-auto">
+      <section className="py-20 bg-secondary">
+        <div className="container mx-auto px-4">
           <motion.blockquote
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
