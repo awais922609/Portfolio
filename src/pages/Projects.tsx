@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Button } from "../components/ui/button";
+import { Trash2 } from "lucide-react";
+import { useToast } from "../components/ui/use-toast";
 import {
   Dialog,
   DialogContent,
@@ -13,11 +15,22 @@ import ProjectForm from "../components/ProjectForm";
 const Projects = () => {
   const [projects, setProjects] = useState<any[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const storedProjects = JSON.parse(localStorage.getItem('projects') || '[]');
     setProjects(storedProjects);
   }, [isOpen]);
+
+  const handleDelete = (id: string) => {
+    const updatedProjects = projects.filter(project => project.id !== id);
+    localStorage.setItem('projects', JSON.stringify(updatedProjects));
+    setProjects(updatedProjects);
+    toast({
+      title: "Success",
+      description: "Project deleted successfully!",
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -50,8 +63,16 @@ const Projects = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="glass-card rounded-xl overflow-hidden hover:scale-105 transition-all"
+              className="glass-card rounded-xl overflow-hidden hover:scale-105 transition-all relative"
             >
+              <Button
+                variant="destructive"
+                size="icon"
+                className="absolute top-2 right-2 z-10"
+                onClick={() => handleDelete(project.id)}
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
               <img
                 src={project.image}
                 alt={project.title}
