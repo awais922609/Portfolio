@@ -10,6 +10,7 @@ import {
   DialogTrigger,
 } from "../components/ui/dialog";
 import CertificationCard from "../components/CertificationCard";
+import CertificationForm from "../components/CertificationForm";
 
 const Certifications = () => {
   const [certifications, setCertifications] = useState<any[]>([]);
@@ -50,7 +51,7 @@ const Certifications = () => {
               <DialogHeader>
                 <DialogTitle>Add New Certification</DialogTitle>
               </DialogHeader>
-              {/* Form component will be added later */}
+              <CertificationForm onClose={() => setIsOpen(false)} />
             </DialogContent>
           </Dialog>
         </div>
