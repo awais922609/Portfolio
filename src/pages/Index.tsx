@@ -22,7 +22,7 @@ const Index = () => {
       <Experience />
       
       {/* Blog Section */}
-      <section className="py-20" id="blog">
+      <section className="py-12" id="blog">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0 }}
@@ -45,7 +45,7 @@ const Index = () => {
       </section>
 
       {/* Quote Section */}
-      <section className="py-20 bg-secondary">
+      <section className="py-12 bg-secondary">
         <div className="container mx-auto px-4">
           <motion.blockquote
             initial={{ opacity: 0 }}

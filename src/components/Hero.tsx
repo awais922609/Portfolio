@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <section className="min-h-[90vh] flex items-center justify-center relative overflow-hidden py-8 px-4 md:px-6 lg:px-8">
+    <section className="min-h-[80vh] flex items-center justify-center relative overflow-hidden py-4 px-4 md:px-6 lg:px-8">
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="space-y-6 max-w-4xl mx-auto"
+          className="space-y-4 max-w-4xl mx-auto"
         >
           <div className="glass-card p-8">
             <div className="flex items-center gap-2 mb-6 text-primary/80">
