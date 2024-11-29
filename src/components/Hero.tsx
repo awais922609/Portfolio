@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <section className="flex items-center justify-center relative overflow-hidden pt-0 mt-0">
-      <div className="container mx-auto">
+    <section className="flex items-center justify-center relative overflow-hidden p-0 m-0">
+      <div className="container mx-auto p-0">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
