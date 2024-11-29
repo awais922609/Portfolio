@@ -1,10 +1,11 @@
 import { useCallback } from "react";
 import Particles from "react-particles";
 import { loadFull } from "tsparticles";
-import type { Engine } from "tsparticles-engine";
+import type { Engine } from "@tsparticles/engine";
 
 const ParticleBackground = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
+    console.log("Initializing tsParticles");
     await loadFull(engine);
   }, []);
 
@@ -18,7 +19,7 @@ const ParticleBackground = () => {
             value: "#000000",
           },
         },
-        fpsLimit: 120,
+        fpsLimit: 60,
         particles: {
           color: {
             value: "#00FF41",
@@ -32,20 +33,20 @@ const ParticleBackground = () => {
           },
           move: {
             enable: true,
-            speed: 1,
+            speed: 0.8,
           },
           number: {
             density: {
               enable: true,
-              area: 800,
+              area: 1000,
             },
-            value: 80,
+            value: 60,
           },
           opacity: {
-            value: 0.3,
+            value: 0.2,
           },
           size: {
-            value: { min: 1, max: 3 },
+            value: { min: 1, max: 2 },
           },
         },
       }}

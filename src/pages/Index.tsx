@@ -12,7 +12,7 @@ const Index = () => {
 
   useEffect(() => {
     const storedBlogs = JSON.parse(localStorage.getItem('blogs') || '[]');
-    setBlogs(storedBlogs.slice(0, 3)); // Only show latest 3 blogs
+    setBlogs(storedBlogs.slice(0, 3));
   }, []);
 
   return (
@@ -22,13 +22,13 @@ const Index = () => {
       <Experience />
       
       {/* Blog Section */}
-      <section className="py-12" id="blog">
+      <section className="py-8" id="blog">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-12"
+            className="text-center mb-8"
           >
             <h2 className="text-3xl font-bold mb-4">Latest Insights</h2>
             <p className="text-muted-foreground">
@@ -45,7 +45,7 @@ const Index = () => {
       </section>
 
       {/* Quote Section */}
-      <section className="py-12 bg-secondary">
+      <section className="py-8 bg-secondary">
         <div className="container mx-auto px-4">
           <motion.blockquote
             initial={{ opacity: 0 }}
