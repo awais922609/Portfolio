@@ -18,7 +18,7 @@ const BlogForm = ({ onClose }: { onClose: () => void }) => {
       id: Date.now().toString(),
       title,
       image: image || "/placeholder.svg",
-      description,
+      description: description.replace(/\n/g, '<br>'), // Convert newlines to <br> tags
       date: new Date().toISOString().split('T')[0]
     };
 
@@ -34,6 +34,14 @@ const BlogForm = ({ onClose }: { onClose: () => void }) => {
     });
 
     onClose();
+  };
+
+  const handleImageInsert = () => {
+    const imageUrl = prompt("Enter image URL:");
+    if (imageUrl) {
+      const imageTag = `<img src="${imageUrl}" alt="Blog image" class="w-full h-auto my-4 rounded-lg" />`;
+      setDescription(prev => prev + imageTag);
+    }
   };
 
   return (
@@ -52,7 +60,7 @@ const BlogForm = ({ onClose }: { onClose: () => void }) => {
       
       <div>
         <label htmlFor="image" className="block text-sm font-medium mb-1">
-          Image URL
+          Cover Image URL
         </label>
         <Input
           id="image"
@@ -66,12 +74,19 @@ const BlogForm = ({ onClose }: { onClose: () => void }) => {
         <label htmlFor="description" className="block text-sm font-medium mb-1">
           Description
         </label>
-        <Textarea
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
+        <div className="space-y-2">
+          <Textarea
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+            className="min-h-[200px]"
+            placeholder="You can include HTML content and images..."
+          />
+          <Button type="button" variant="outline" onClick={handleImageInsert}>
+            Insert Image
+          </Button>
+        </div>
       </div>
       
       <div className="flex justify-end gap-2">

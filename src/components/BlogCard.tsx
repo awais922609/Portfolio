@@ -37,7 +37,10 @@ const BlogCard = ({ title, description, image, date, id, onDelete }: BlogCardPro
       <div className="p-6">
         <span className="text-sm text-primary">{date}</span>
         <h3 className="text-xl font-bold mt-2 mb-3">{title}</h3>
-        <p className="text-muted-foreground">{description}</p>
+        <div 
+          className="text-muted-foreground prose prose-sm max-w-none"
+          dangerouslySetInnerHTML={{ __html: description }}
+        />
         <Link 
           to={`/blog/${id}`}
           className="inline-block mt-4 text-primary hover:text-primary/80 transition-colors"
