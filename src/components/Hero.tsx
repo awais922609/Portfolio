@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <section className="flex items-center justify-center relative overflow-hidden">
+    <section className="flex items-center justify-center relative overflow-hidden pt-0 mt-0">
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
