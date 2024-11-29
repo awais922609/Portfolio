@@ -25,7 +25,7 @@ const Hero = () => {
                 transition={{ delay: 0.5 }}
                 className="typing-effect"
               >
-                <span className="text-sm text-primary/60">> Initializing security profile...</span>
+                <span className="text-sm text-primary/60">{'>>'} Initializing security profile...</span>
               </motion.div>
               
               <motion.div
