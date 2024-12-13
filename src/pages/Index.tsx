@@ -134,9 +134,9 @@ const Index = () => {
             className="text-center max-w-3xl mx-auto"
           >
             <p className="text-2xl font-medium italic mb-4">
-              "Time is what determines security. With enough time, nothing is unhackable."
+              "This portfolio is like a well-configured firewall—secure, adaptive, and always monitoring for opportunities."
             </p>
-            <footer className="text-primary">- Security Principle</footer>
+            <footer className="text-primary">- Cybersecurity Portfolio</footer>
           </motion.blockquote>
         </div>
       </section>
