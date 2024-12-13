@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { useAuth } from "../contexts/AuthContext";
+import HomeButton from "../components/HomeButton";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -23,6 +24,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center">
+      <HomeButton />
       <div className="w-full max-w-md p-8 glass-card rounded-xl">
         <h1 className="text-2xl font-bold text-center mb-6">Admin Login</h1>
         <form onSubmit={handleSubmit} className="space-y-4">

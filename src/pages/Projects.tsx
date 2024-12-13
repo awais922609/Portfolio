@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Button } from "../components/ui/button";
 import { Trash2 } from "lucide-react";
 import { useToast } from "../components/ui/use-toast";
+import HomeButton from "../components/HomeButton";
 import {
   Dialog,
   DialogContent,
@@ -34,6 +35,7 @@ const Projects = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <HomeButton />
       <div className="container mx-auto px-4 py-20">
         <div className="flex justify-between items-center mb-12">
           <motion.h1 
