@@ -26,6 +26,14 @@ const Certifications = () => {
   }, [isOpen]);
 
   const handleDelete = (id: string) => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Error",
+        description: "You must be logged in as admin to delete certifications.",
+        variant: "destructive"
+      });
+      return;
+    }
     const updatedCertifications = certifications.filter(cert => cert.id !== id);
     localStorage.setItem('certifications', JSON.stringify(updatedCertifications));
     setCertifications(updatedCertifications);

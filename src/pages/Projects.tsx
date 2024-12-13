@@ -26,6 +26,14 @@ const Projects = () => {
   }, [isOpen]);
 
   const handleDelete = (id: string) => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Error",
+        description: "You must be logged in as admin to delete projects.",
+        variant: "destructive"
+      });
+      return;
+    }
     const updatedProjects = projects.filter(project => project.id !== id);
     localStorage.setItem('projects', JSON.stringify(updatedProjects));
     setProjects(updatedProjects);

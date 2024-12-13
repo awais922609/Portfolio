@@ -26,6 +26,14 @@ const Blog = () => {
   }, [isOpen]);
 
   const handleDelete = (id: string) => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Error",
+        description: "You must be logged in as admin to delete blogs.",
+        variant: "destructive"
+      });
+      return;
+    }
     const updatedBlogs = blogs.filter(blog => blog.id !== id);
     localStorage.setItem('blogs', JSON.stringify(updatedBlogs));
     setBlogs(updatedBlogs);
