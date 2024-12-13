@@ -23,14 +23,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
-            <Route
-              path="/blog"
-              element={
-                <ProtectedRoute>
-                  <Blog />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/blog" element={<Blog />} />
             <Route
               path="/projects"
               element={

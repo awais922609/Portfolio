@@ -17,6 +17,10 @@ const Login = () => {
     }
   };
 
+  const handleViewAsGuest = () => {
+    navigate('/');
+  };
+
   return (
     <div className="min-h-screen bg-background flex items-center justify-center">
       <div className="w-full max-w-md p-8 glass-card rounded-xl">
@@ -48,6 +52,14 @@ const Login = () => {
           </div>
           <Button type="submit" className="w-full">
             Login
+          </Button>
+          <Button 
+            type="button" 
+            variant="outline" 
+            className="w-full mt-2"
+            onClick={handleViewAsGuest}
+          >
+            View as Guest
           </Button>
         </form>
       </div>
