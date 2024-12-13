@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Button } from "../components/ui/button";
 import { useToast } from "../components/ui/use-toast";
 import HomeButton from "../components/HomeButton";
+import { useAuth } from "../contexts/AuthContext";
 import {
   Dialog,
   DialogContent,
@@ -17,6 +18,7 @@ const Certifications = () => {
   const [certifications, setCertifications] = useState<any[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const storedCertifications = JSON.parse(localStorage.getItem('certifications') || '[]');
@@ -45,17 +47,19 @@ const Certifications = () => {
           >
             Certifications
           </motion.h1>
-          <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild>
-              <Button>Add New Certification</Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Add New Certification</DialogTitle>
-              </DialogHeader>
-              <CertificationForm onClose={() => setIsOpen(false)} />
-            </DialogContent>
-          </Dialog>
+          {isAuthenticated && (
+            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+              <DialogTrigger asChild>
+                <Button>Add New Certification</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Add New Certification</DialogTitle>
+                </DialogHeader>
+                <CertificationForm onClose={() => setIsOpen(false)} />
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -4,6 +4,7 @@ import { Button } from "../components/ui/button";
 import { Trash2 } from "lucide-react";
 import { useToast } from "../components/ui/use-toast";
 import HomeButton from "../components/HomeButton";
+import { useAuth } from "../contexts/AuthContext";
 import {
   Dialog,
   DialogContent,
@@ -17,6 +18,7 @@ const Projects = () => {
   const [projects, setProjects] = useState<any[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const storedProjects = JSON.parse(localStorage.getItem('projects') || '[]');
@@ -45,17 +47,19 @@ const Projects = () => {
           >
             Projects
           </motion.h1>
-          <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild>
-              <Button>Add New Project</Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Add New Project</DialogTitle>
-              </DialogHeader>
-              <ProjectForm onClose={() => setIsOpen(false)} />
-            </DialogContent>
-          </Dialog>
+          {isAuthenticated && (
+            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+              <DialogTrigger asChild>
+                <Button>Add New Project</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Add New Project</DialogTitle>
+                </DialogHeader>
+                <ProjectForm onClose={() => setIsOpen(false)} />
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -67,14 +71,16 @@ const Projects = () => {
               transition={{ duration: 0.5 }}
               className="glass-card rounded-xl overflow-hidden hover:scale-105 transition-all relative"
             >
-              <Button
-                variant="destructive"
-                size="icon"
-                className="absolute top-2 right-2 z-10"
-                onClick={() => handleDelete(project.id)}
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
+              {isAuthenticated && (
+                <Button
+                  variant="destructive"
+                  size="icon"
+                  className="absolute top-2 right-2 z-10"
+                  onClick={() => handleDelete(project.id)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              )}
               <img
                 src={project.image}
                 alt={project.title}
