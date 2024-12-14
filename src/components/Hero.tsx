@@ -8,6 +8,19 @@ const Hero = () => {
 
   return (
     <section className="min-h-[80vh] flex items-center justify-center relative">
+      {/* Login/Logout Button in top right */}
+      <div className="absolute top-4 right-4">
+        {isAuthenticated ? (
+          <Button variant="outline" onClick={logout}>
+            Logout
+          </Button>
+        ) : (
+          <Button variant="outline" asChild>
+            <Link to="/login">Login</Link>
+          </Button>
+        )}
+      </div>
+
       <div className="container mx-auto px-4 text-center">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -28,20 +41,17 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="flex gap-4 justify-center"
+          className="flex flex-wrap gap-4 justify-center"
         >
           <Button asChild>
             <Link to="/projects">View Projects</Link>
           </Button>
-          {isAuthenticated ? (
-            <Button variant="outline" onClick={logout}>
-              Logout
-            </Button>
-          ) : (
-            <Button variant="outline" asChild>
-              <Link to="/login">Login</Link>
-            </Button>
-          )}
+          <Button variant="outline" asChild>
+            <Link to="/certifications">View Certifications</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link to="/blog">View Blog</Link>
+          </Button>
         </motion.div>
       </div>
     </section>
