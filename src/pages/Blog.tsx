@@ -14,12 +14,33 @@ import {
 import BlogForm from "../components/BlogForm";
 import { useToast } from "../components/ui/use-toast";
 import ProtectedRoute from "../components/ProtectedRoute";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  rectSortingStrategy,
+} from '@dnd-kit/sortable';
 
 const Blog = () => {
   const [blogs, setBlogs] = useState<any[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const { isAuthenticated } = useAuth();
   const { toast } = useToast();
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   useEffect(() => {
     const storedBlogs = JSON.parse(localStorage.getItem('blogs') || '[]');
@@ -34,6 +55,21 @@ const Blog = () => {
       title: "Success",
       description: "Blog deleted successfully!",
     });
+  };
+
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
+
+    if (active.id !== over.id) {
+      setBlogs((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
+        
+        const newOrder = arrayMove(items, oldIndex, newIndex);
+        localStorage.setItem('blogs', JSON.stringify(newOrder));
+        return newOrder;
+      });
+    }
   };
 
   return (
@@ -65,15 +101,26 @@ const Blog = () => {
           )}
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogs.map((blog) => (
-            <BlogCard 
-              key={blog.id} 
-              {...blog} 
-              onDelete={handleDelete}
-            />
-          ))}
-        </div>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext 
+            items={blogs.map(blog => blog.id)}
+            strategy={rectSortingStrategy}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {blogs.map((blog) => (
+                <BlogCard 
+                  key={blog.id} 
+                  {...blog} 
+                  onDelete={handleDelete}
+                />
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
       </div>
     </div>
   );
