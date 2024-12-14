@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { Shield, Terminal, Search } from "lucide-react";
 
 const Hero = () => {
   const { isAuthenticated, logout } = useAuth();
@@ -25,18 +26,40 @@ const Hero = () => {
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-6xl font-bold mb-6"
+          className="text-5xl md:text-7xl font-bold mb-4"
         >
-          Cybersecurity Portfolio
+          Awais Sajid
         </motion.h1>
-        <motion.p
+
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
+          className="flex flex-wrap justify-center gap-6 mb-6"
+        >
+          <div className="flex items-center gap-2">
+            <Shield className="w-6 h-6" />
+            <span className="text-xl">Security Engineer</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Search className="w-6 h-6" />
+            <span className="text-xl">SOC Analyst</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Terminal className="w-6 h-6" />
+            <span className="text-xl">Penetration Tester</span>
+          </div>
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
           className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
         >
-          Securing digital landscapes, one byte at a time. Explore my journey through the realm of cybersecurity.
+          A passionate cybersecurity professional dedicated to protecting digital assets and infrastructure through proactive security measures and continuous monitoring.
         </motion.p>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
