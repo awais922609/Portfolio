@@ -7,6 +7,7 @@ const CertificationForm = ({ onClose }: { onClose: () => void }) => {
   const [title, setTitle] = useState("");
   const [certificateLink, setCertificateLink] = useState("");
   const [issuer, setIssuer] = useState("");
+  const [image, setImage] = useState("");
   const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -17,6 +18,7 @@ const CertificationForm = ({ onClose }: { onClose: () => void }) => {
       title,
       certificateLink,
       issuer,
+      image: image || "/placeholder.svg",
       date: new Date().toISOString().split('T')[0]
     };
 
@@ -57,6 +59,18 @@ const CertificationForm = ({ onClose }: { onClose: () => void }) => {
           value={issuer}
           onChange={(e) => setIssuer(e.target.value)}
           required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="image" className="block text-sm font-medium mb-1">
+          Cover Image URL
+        </label>
+        <Input
+          id="image"
+          value={image}
+          onChange={(e) => setImage(e.target.value)}
+          placeholder="Enter image URL or leave empty for placeholder"
         />
       </div>
 

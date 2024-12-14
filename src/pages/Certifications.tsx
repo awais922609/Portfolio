@@ -13,12 +13,33 @@ import {
 } from "../components/ui/dialog";
 import CertificationCard from "../components/CertificationCard";
 import CertificationForm from "../components/CertificationForm";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  rectSortingStrategy,
+} from '@dnd-kit/sortable';
 
 const Certifications = () => {
   const [certifications, setCertifications] = useState<any[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
   const { isAuthenticated } = useAuth();
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   useEffect(() => {
     const storedCertifications = JSON.parse(localStorage.getItem('certifications') || '[]');
@@ -41,6 +62,21 @@ const Certifications = () => {
       title: "Success",
       description: "Certification deleted successfully!",
     });
+  };
+
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
+
+    if (active.id !== over.id) {
+      setCertifications((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
+        
+        const newOrder = arrayMove(items, oldIndex, newIndex);
+        localStorage.setItem('certifications', JSON.stringify(newOrder));
+        return newOrder;
+      });
+    }
   };
 
   return (
@@ -70,15 +106,26 @@ const Certifications = () => {
           )}
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {certifications.map((certification) => (
-            <CertificationCard 
-              key={certification.id} 
-              {...certification} 
-              onDelete={handleDelete} 
-            />
-          ))}
-        </div>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext 
+            items={certifications.map(cert => cert.id)}
+            strategy={rectSortingStrategy}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {certifications.map((certification) => (
+                <CertificationCard 
+                  key={certification.id} 
+                  {...certification} 
+                  onDelete={handleDelete} 
+                />
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
       </div>
     </div>
   );
