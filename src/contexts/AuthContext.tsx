@@ -10,6 +10,12 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
+// Admin Credentials
+const ADMIN_CREDENTIALS = {
+  username: 'admin',
+  password: 'Admin@321'
+};
+
 // Hash function (simple for demo purposes)
 const hash = (str: string) => {
   let hash = 0;
@@ -34,11 +40,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const login = (username: string, password: string) => {
-    // Hardcoded credentials (hashed)
-    const validUsername = hash('admin');
-    const validPassword = hash('Admin@321');
-
-    if (hash(username) === validUsername && hash(password) === validPassword) {
+    // Compare with admin credentials
+    if (hash(username) === hash(ADMIN_CREDENTIALS.username) && 
+        hash(password) === hash(ADMIN_CREDENTIALS.password)) {
       setIsAuthenticated(true);
       localStorage.setItem('isAuthenticated', 'true');
       toast.success('Successfully logged in');
