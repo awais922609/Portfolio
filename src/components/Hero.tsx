@@ -1,121 +1,47 @@
 import { motion } from "framer-motion";
-import { Mail, Terminal, Shield, Cpu, Network } from "lucide-react";
+import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const Hero = () => {
+  const { isAuthenticated, logout } = useAuth();
+
   return (
-    <section className="flex items-center justify-center relative overflow-hidden p-0 m-0">
-      <div className="container mx-auto p-0">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto"
+    <section className="min-h-[80vh] flex items-center justify-center relative">
+      <div className="container mx-auto px-4 text-center">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-4xl md:text-6xl font-bold mb-6"
         >
-          <div className="glass-card p-8">
-            <div className="flex items-center gap-2 mb-6 text-primary/80">
-              <Terminal size={20} />
-              <span className="text-sm">system@cybersecurity:~$</span>
-            </div>
-            
-            <div className="space-y-4">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="typing-effect"
-              >
-                <span className="text-sm text-primary/60">{'>>'} Initializing security profile...</span>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-              >
-                <h1 className="text-4xl md:text-6xl font-bold cursor-blink">
-                  Awais Sajid
-                </h1>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5 }}
-                className="flex flex-wrap gap-4 text-sm"
-              >
-                <span className="flex items-center gap-2">
-                  <Shield size={16} />
-                  Security Engineer
-                </span>
-                <span className="flex items-center gap-2">
-                  <Cpu size={16} />
-                  Penetration Tester
-                </span>
-                <span className="flex items-center gap-2">
-                  <Network size={16} />
-                  Network Security
-                </span>
-              </motion.div>
-              
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2 }}
-                className="text-lg text-primary/80"
-              >
-                Dedicated Security Engineer with expertise in implementing robust security solutions
-                and conducting comprehensive security assessments.
-              </motion.p>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2.5 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8"
-            >
-              <a
-                href="mailto:awaissajid@cyberdude.com"
-                className="glass-card p-4 hover:border-primary/50 transition-colors flex items-center gap-3"
-              >
-                <Mail size={20} />
-                <span className="text-sm">awaissajid@cyberdude.com</span>
-              </a>
-              
-              <a
-                href="https://www.linkedin.com/in/awais-sajid"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glass-card p-4 hover:border-primary/50 transition-colors flex items-center gap-3"
-              >
-                <Terminal size={20} />
-                <span className="text-sm">/in/awais-sajid</span>
-              </a>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 3 }}
-              className="flex gap-4 mt-8"
-            >
-              <Link
-                to="/blog"
-                className="glass-card px-6 py-3 hover:border-primary/50 transition-colors text-sm flex items-center gap-2"
-              >
-                <Terminal size={16} />
-                View Blog
-              </Link>
-              <Link
-                to="/projects"
-                className="glass-card px-6 py-3 hover:border-primary/50 transition-colors text-sm flex items-center gap-2"
-              >
-                <Terminal size={16} />
-                View Projects
-              </Link>
-            </motion.div>
-          </div>
+          Cybersecurity Portfolio
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+        >
+          Securing digital landscapes, one byte at a time. Explore my journey through the realm of cybersecurity.
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="flex gap-4 justify-center"
+        >
+          <Button asChild>
+            <Link to="/projects">View Projects</Link>
+          </Button>
+          {isAuthenticated ? (
+            <Button variant="outline" onClick={logout}>
+              Logout
+            </Button>
+          ) : (
+            <Button variant="outline" asChild>
+              <Link to="/login">Login</Link>
+            </Button>
+          )}
         </motion.div>
       </div>
     </section>
