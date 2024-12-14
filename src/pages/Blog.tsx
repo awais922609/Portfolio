@@ -13,6 +13,7 @@ import {
 } from "../components/ui/dialog";
 import BlogForm from "../components/BlogForm";
 import { useToast } from "../components/ui/use-toast";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState<any[]>([]);
@@ -26,14 +27,6 @@ const Blog = () => {
   }, [isOpen]);
 
   const handleDelete = (id: string) => {
-    if (!isAuthenticated) {
-      toast({
-        title: "Error",
-        description: "You must be logged in as admin to delete blogs.",
-        variant: "destructive"
-      });
-      return;
-    }
     const updatedBlogs = blogs.filter(blog => blog.id !== id);
     localStorage.setItem('blogs', JSON.stringify(updatedBlogs));
     setBlogs(updatedBlogs);
@@ -64,7 +57,9 @@ const Blog = () => {
                 <DialogHeader>
                   <DialogTitle>Add New Blog</DialogTitle>
                 </DialogHeader>
-                <BlogForm onClose={() => setIsOpen(false)} />
+                <ProtectedRoute>
+                  <BlogForm onClose={() => setIsOpen(false)} />
+                </ProtectedRoute>
               </DialogContent>
             </Dialog>
           )}
@@ -72,7 +67,11 @@ const Blog = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogs.map((blog) => (
-            <BlogCard key={blog.id} {...blog} onDelete={handleDelete} />
+            <BlogCard 
+              key={blog.id} 
+              {...blog} 
+              onDelete={handleDelete}
+            />
           ))}
         </div>
       </div>
