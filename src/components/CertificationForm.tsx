@@ -15,9 +15,9 @@ const CertificationForm = ({ onClose }: { onClose: () => void }) => {
     
     const newCertification = {
       id: Date.now().toString(),
-      title,
+      title: title || "Untitled Certification",
       certificateLink,
-      issuer,
+      issuer: issuer || "Unknown Issuer",
       image: image || "/placeholder.svg",
       date: new Date().toISOString().split('T')[0]
     };
@@ -46,7 +46,7 @@ const CertificationForm = ({ onClose }: { onClose: () => void }) => {
           id="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          required
+          placeholder="Enter certification title"
         />
       </div>
       
@@ -58,7 +58,7 @@ const CertificationForm = ({ onClose }: { onClose: () => void }) => {
           id="issuer"
           value={issuer}
           onChange={(e) => setIssuer(e.target.value)}
-          required
+          placeholder="Enter issuer name"
         />
       </div>
 
@@ -83,7 +83,6 @@ const CertificationForm = ({ onClose }: { onClose: () => void }) => {
           value={certificateLink}
           onChange={(e) => setCertificateLink(e.target.value)}
           placeholder="https://..."
-          required
         />
       </div>
       
