@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Trash2 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
@@ -7,14 +6,14 @@ import ProtectedRoute from "./ProtectedRoute";
 
 interface BlogCardProps {
   title: string;
-  description: string;
   image: string;
+  url: string;
   date: string;
   id: string;
   onDelete: (id: string) => void;
 }
 
-const BlogCard = ({ title, description, image, date, id, onDelete }: BlogCardProps) => {
+const BlogCard = ({ title, image, url, date, id, onDelete }: BlogCardProps) => {
   const { isAuthenticated } = useAuth();
 
   return (
@@ -56,16 +55,14 @@ const BlogCard = ({ title, description, image, date, id, onDelete }: BlogCardPro
       <div className="p-6">
         <span className="text-sm text-primary">{date}</span>
         <h3 className="text-xl font-bold mt-2 mb-3">{title}</h3>
-        <div 
-          className="text-muted-foreground prose prose-sm max-w-none"
-          dangerouslySetInnerHTML={{ __html: description }}
-        />
-        <Link 
-          to={`/blog/${id}`}
+        <a 
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-block mt-4 text-primary hover:text-primary/80 transition-colors"
         >
           Read More →
-        </Link>
+        </a>
       </div>
     </motion.article>
   );
