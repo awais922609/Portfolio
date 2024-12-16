@@ -13,12 +13,22 @@ import {
   DialogTrigger,
 } from "../components/ui/dialog";
 import ProjectForm from "../components/ProjectForm";
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { SortableProject } from "../components/SortableProject";
 
 const Projects = () => {
   const [projects, setProjects] = useState<any[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
   const { isAuthenticated } = useAuth();
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   useEffect(() => {
     const storedProjects = JSON.parse(localStorage.getItem('projects') || '[]');
@@ -41,6 +51,21 @@ const Projects = () => {
       title: "Success",
       description: "Project deleted successfully!",
     });
+  };
+
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
+    
+    if (active.id !== over.id) {
+      setProjects((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
+        
+        const newOrder = arrayMove(items, oldIndex, newIndex);
+        localStorage.setItem('projects', JSON.stringify(newOrder));
+        return newOrder;
+      });
+    }
   };
 
   return (
@@ -70,47 +95,24 @@ const Projects = () => {
           )}
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="glass-card rounded-xl overflow-hidden hover:scale-105 transition-all relative"
-            >
-              {isAuthenticated && (
-                <Button
-                  variant="destructive"
-                  size="icon"
-                  className="absolute top-2 right-2 z-10"
-                  onClick={() => handleDelete(project.id)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              )}
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-3">{project.title}</h3>
-                <p className="text-muted-foreground mb-4">{project.description}</p>
-                {project.link && (
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:text-primary/80 transition-colors"
-                  >
-                    View Project →
-                  </a>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext items={projects} strategy={verticalListSortingStrategy}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects.map((project) => (
+                <SortableProject
+                  key={project.id}
+                  project={project}
+                  onDelete={handleDelete}
+                  isAuthenticated={isAuthenticated}
+                />
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
       </div>
     </div>
   );
