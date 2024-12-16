@@ -119,7 +119,7 @@ const Hero = () => {
                 >
                   <CarouselContent>
                     {projects.map((project) => (
-                      <CarouselItem key={project.id}>
+                      <CarouselItem key={project.id} className="md:basis-1/2 lg:basis-1/3">
                         <div className="glass-card rounded-xl overflow-hidden p-1">
                           <img
                             src={project.image}
@@ -160,11 +160,11 @@ const Hero = () => {
                   }}
                   className="w-full px-4"
                   autoplay={true}
-                  delayMs={6000}
+                  delayMs={5000}
                 >
                   <CarouselContent>
                     {blogs.map((blog) => (
-                      <CarouselItem key={blog.id}>
+                      <CarouselItem key={blog.id} className="md:basis-1/2 lg:basis-1/3">
                         <div className="glass-card rounded-xl overflow-hidden">
                           <img
                             src={blog.image}
@@ -204,11 +204,11 @@ const Hero = () => {
                   }}
                   className="w-full px-4"
                   autoplay={true}
-                  delayMs={7000}
+                  delayMs={5000}
                 >
                   <CarouselContent>
                     {certifications.map((cert) => (
-                      <CarouselItem key={cert.id}>
+                      <CarouselItem key={cert.id} className="md:basis-1/2 lg:basis-1/3">
                         <div className="glass-card rounded-xl overflow-hidden">
                           <img
                             src={cert.image}
