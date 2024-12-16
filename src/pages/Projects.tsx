@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Button } from "../components/ui/button";
-import { Trash2 } from "lucide-react";
 import { useToast } from "../components/ui/use-toast";
 import HomeButton from "../components/HomeButton";
 import { useAuth } from "../contexts/AuthContext";
@@ -13,7 +12,7 @@ import {
   DialogTrigger,
 } from "../components/ui/dialog";
 import ProjectForm from "../components/ProjectForm";
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { SortableProject } from "../components/SortableProject";
 
@@ -53,13 +52,13 @@ const Projects = () => {
     });
   };
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     
-    if (active.id !== over.id) {
+    if (active.id !== over?.id) {
       setProjects((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
-        const newIndex = items.findIndex((item) => item.id === over.id);
+        const newIndex = items.findIndex((item) => item.id === over?.id);
         
         const newOrder = arrayMove(items, oldIndex, newIndex);
         localStorage.setItem('projects', JSON.stringify(newOrder));
