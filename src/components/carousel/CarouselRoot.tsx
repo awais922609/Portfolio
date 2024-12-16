@@ -1,7 +1,8 @@
 import * as React from "react";
 import useEmblaCarousel, { 
-  type UseEmblaCarouselType, 
-  type EmblaCarouselType 
+  type UseEmblaCarouselType,
+  type EmblaOptionsType,
+  type EmblaPluginType,
 } from "embla-carousel-react";
 import { cn } from "@/lib/utils";
 import { CarouselContext } from "./CarouselContext";
@@ -9,8 +10,8 @@ import Autoplay from 'embla-carousel-autoplay';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type CarouselProps = {
-  opts?: Partial<EmblaCarouselType>;
-  plugins?: any[];
+  opts?: EmblaOptionsType;
+  plugins?: EmblaPluginType[];
   orientation?: "horizontal" | "vertical";
   setApi?: (api: CarouselApi) => void;
   className?: string;
