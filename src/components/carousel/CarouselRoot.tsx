@@ -1,12 +1,15 @@
 import * as React from "react";
-import useEmblaCarousel, { type UseEmblaCarouselType, type EmblaOptionsType } from "embla-carousel-react";
+import useEmblaCarousel, { 
+  type UseEmblaCarouselType, 
+  type EmblaCarouselType 
+} from "embla-carousel-react";
 import { cn } from "@/lib/utils";
 import { CarouselContext } from "./CarouselContext";
 import Autoplay from 'embla-carousel-autoplay';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type CarouselProps = {
-  opts?: EmblaOptionsType;
+  opts?: Partial<EmblaCarouselType>;
   plugins?: any[];
   orientation?: "horizontal" | "vertical";
   setApi?: (api: CarouselApi) => void;
@@ -92,7 +95,7 @@ const CarouselRoot = React.forwardRef<HTMLDivElement, CarouselProps>(
     return (
       <CarouselContext.Provider
         value={{
-          carouselRef: emblaRef,
+          carouselRef: emblaRef as React.MutableRefObject<HTMLDivElement>,
           api: emblaApi,
           opts,
           orientation,
