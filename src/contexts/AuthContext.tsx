@@ -18,7 +18,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const navigate = useNavigate();
 
-  // Check session on mount
   useEffect(() => {
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -28,8 +27,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     checkSession();
 
-    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      console.log("Auth state changed:", _event, !!session);
       setIsAuthenticated(!!session);
       setSession(session);
     });
@@ -60,16 +59,26 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = async () => {
     try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-      
+      // First clear local state
       setIsAuthenticated(false);
       setSession(null);
+
+      // Then attempt to sign out from Supabase
+      const { error } = await supabase.auth.signOut();
+      
+      // Even if there's an error, we want to clear the local session
+      if (error) {
+        console.warn('Logout warning:', error);
+        // Don't throw the error, just log it
+      }
+
       navigate('/');
       toast.success('Logged out successfully');
     } catch (error) {
       console.error('Logout error:', error);
-      toast.error('An error occurred during logout');
+      // Still navigate and show success since we've cleared the local session
+      navigate('/');
+      toast.success('Logged out successfully');
     }
   };
 
