@@ -3,27 +3,43 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useToast } from "./ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 const BlogForm = ({ onClose }: { onClose: () => void }) => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
   const { toast } = useToast();
+  const { session } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (!session?.user) {
+      toast({
+        title: "Error",
+        description: "You must be logged in to create blog posts",
+        variant: "destructive"
+      });
+      return;
+    }
+
     try {
+      console.log("Creating blog post...", { title, image, url });
       const { error } = await supabase
         .from('blogs')
         .insert([{
           title,
           image: image || "/placeholder.svg",
           url,
-          date: new Date().toISOString().split('T')[0]
+          date: new Date().toISOString().split('T')[0],
+          user_id: session.user.id
         }]);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error creating blog:', error);
+        throw error;
+      }
 
       toast({
         title: "Success",

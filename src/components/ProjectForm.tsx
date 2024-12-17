@@ -4,6 +4,7 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "./ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 const ProjectForm = ({ onClose }: { onClose: () => void }) => {
   const [title, setTitle] = useState("");
@@ -11,21 +12,36 @@ const ProjectForm = ({ onClose }: { onClose: () => void }) => {
   const [description, setDescription] = useState("");
   const [link, setLink] = useState("");
   const { toast } = useToast();
+  const { session } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (!session?.user) {
+      toast({
+        title: "Error",
+        description: "You must be logged in to create projects",
+        variant: "destructive"
+      });
+      return;
+    }
+
     try {
+      console.log("Creating project...", { title, image, description, link });
       const { error } = await supabase
         .from('projects')
         .insert([{
           title,
           image: image || "/placeholder.svg",
           description,
-          link
+          link,
+          user_id: session.user.id
         }]);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error creating project:', error);
+        throw error;
+      }
 
       toast({
         title: "Success",
