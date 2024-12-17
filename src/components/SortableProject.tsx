@@ -2,7 +2,8 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
-import { Trash2 } from "lucide-react";
+import { Trash2, GripVertical } from "lucide-react";
+import { toast } from "sonner";
 
 interface SortableProjectProps {
   project: {
@@ -30,26 +31,43 @@ export function SortableProject({ project, onDelete, isAuthenticated }: Sortable
     transition,
   };
 
+  const handleDelete = () => {
+    if (!isAuthenticated) {
+      toast.error("You must be logged in to delete projects");
+      return;
+    }
+    onDelete(project.id);
+    toast.success("Project deleted successfully");
+  };
+
   return (
     <motion.div
       ref={setNodeRef}
       style={style}
-      {...attributes}
-      {...listeners}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="glass-card rounded-xl overflow-hidden hover:scale-105 transition-all relative cursor-move"
+      className="glass-card rounded-xl overflow-hidden hover:scale-105 transition-all relative"
     >
       {isAuthenticated && (
-        <Button
-          variant="destructive"
-          size="icon"
-          className="absolute top-2 right-2 z-10"
-          onClick={() => onDelete(project.id)}
-        >
-          <Trash2 className="h-4 w-4" />
-        </Button>
+        <div className="absolute top-2 right-2 z-10 flex gap-2">
+          <Button
+            variant="secondary"
+            size="icon"
+            className="cursor-grab active:cursor-grabbing"
+            {...attributes}
+            {...listeners}
+          >
+            <GripVertical className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="destructive"
+            size="icon"
+            onClick={handleDelete}
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
       )}
       <img
         src={project.image}
