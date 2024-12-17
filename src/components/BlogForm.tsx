@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useToast } from "./ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const BlogForm = ({ onClose }: { onClose: () => void }) => {
   const [title, setTitle] = useState("");
@@ -9,29 +10,35 @@ const BlogForm = ({ onClose }: { onClose: () => void }) => {
   const [url, setUrl] = useState("");
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const newBlog = {
-      id: Date.now().toString(),
-      title,
-      image: image || "/placeholder.svg",
-      url,
-      date: new Date().toISOString().split('T')[0]
-    };
+    try {
+      const { error } = await supabase
+        .from('blogs')
+        .insert([{
+          title,
+          image: image || "/placeholder.svg",
+          url,
+          date: new Date().toISOString().split('T')[0]
+        }]);
 
-    // Get existing blogs from localStorage
-    const existingBlogs = JSON.parse(localStorage.getItem('blogs') || '[]');
-    
-    // Add new blog
-    localStorage.setItem('blogs', JSON.stringify([...existingBlogs, newBlog]));
+      if (error) throw error;
 
-    toast({
-      title: "Success",
-      description: "Blog post created successfully!",
-    });
+      toast({
+        title: "Success",
+        description: "Blog post created successfully!",
+      });
 
-    onClose();
+      onClose();
+    } catch (error) {
+      console.error('Error creating blog:', error);
+      toast({
+        title: "Error",
+        description: "Failed to create blog post",
+        variant: "destructive"
+      });
+    }
   };
 
   return (

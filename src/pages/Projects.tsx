@@ -4,6 +4,7 @@ import { Button } from "../components/ui/button";
 import { useToast } from "../components/ui/use-toast";
 import HomeButton from "../components/HomeButton";
 import { useAuth } from "../contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
   DialogContent,
@@ -30,11 +31,29 @@ const Projects = () => {
   );
 
   useEffect(() => {
-    const storedProjects = JSON.parse(localStorage.getItem('projects') || '[]');
-    setProjects(storedProjects);
+    fetchProjects();
   }, [isOpen]);
 
-  const handleDelete = (id: string) => {
+  const fetchProjects = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setProjects(data || []);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      toast({
+        title: "Error",
+        description: "Failed to fetch projects",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleDelete = async (id: string) => {
     if (!isAuthenticated) {
       toast({
         title: "Error",
@@ -43,13 +62,28 @@ const Projects = () => {
       });
       return;
     }
-    const updatedProjects = projects.filter(project => project.id !== id);
-    localStorage.setItem('projects', JSON.stringify(updatedProjects));
-    setProjects(updatedProjects);
-    toast({
-      title: "Success",
-      description: "Project deleted successfully!",
-    });
+
+    try {
+      const { error } = await supabase
+        .from('projects')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+
+      setProjects(projects.filter(project => project.id !== id));
+      toast({
+        title: "Success",
+        description: "Project deleted successfully!",
+      });
+    } catch (error) {
+      console.error('Error deleting project:', error);
+      toast({
+        title: "Error",
+        description: "Failed to delete project",
+        variant: "destructive"
+      });
+    }
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -59,10 +93,7 @@ const Projects = () => {
       setProjects((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over?.id);
-        
-        const newOrder = arrayMove(items, oldIndex, newIndex);
-        localStorage.setItem('projects', JSON.stringify(newOrder));
-        return newOrder;
+        return arrayMove(items, oldIndex, newIndex);
       });
     }
   };

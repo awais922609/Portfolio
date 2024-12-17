@@ -4,6 +4,7 @@ import { Button } from "../components/ui/button";
 import { useToast } from "../components/ui/use-toast";
 import HomeButton from "../components/HomeButton";
 import { useAuth } from "../contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
   DialogContent,
@@ -42,11 +43,29 @@ const Certifications = () => {
   );
 
   useEffect(() => {
-    const storedCertifications = JSON.parse(localStorage.getItem('certifications') || '[]');
-    setCertifications(storedCertifications);
+    fetchCertifications();
   }, [isOpen]);
 
-  const handleDelete = (id: string) => {
+  const fetchCertifications = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('certifications')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setCertifications(data || []);
+    } catch (error) {
+      console.error('Error fetching certifications:', error);
+      toast({
+        title: "Error",
+        description: "Failed to fetch certifications",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleDelete = async (id: string) => {
     if (!isAuthenticated) {
       toast({
         title: "Error",
@@ -55,13 +74,28 @@ const Certifications = () => {
       });
       return;
     }
-    const updatedCertifications = certifications.filter(cert => cert.id !== id);
-    localStorage.setItem('certifications', JSON.stringify(updatedCertifications));
-    setCertifications(updatedCertifications);
-    toast({
-      title: "Success",
-      description: "Certification deleted successfully!",
-    });
+
+    try {
+      const { error } = await supabase
+        .from('certifications')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+
+      setCertifications(certifications.filter(cert => cert.id !== id));
+      toast({
+        title: "Success",
+        description: "Certification deleted successfully!",
+      });
+    } catch (error) {
+      console.error('Error deleting certification:', error);
+      toast({
+        title: "Error",
+        description: "Failed to delete certification",
+        variant: "destructive"
+      });
+    }
   };
 
   const handleDragEnd = (event: any) => {
@@ -73,7 +107,6 @@ const Certifications = () => {
         const newIndex = items.findIndex((item) => item.id === over.id);
         
         const newOrder = arrayMove(items, oldIndex, newIndex);
-        localStorage.setItem('certifications', JSON.stringify(newOrder));
         return newOrder;
       });
     }

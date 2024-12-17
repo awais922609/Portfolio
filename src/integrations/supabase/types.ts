@@ -9,7 +9,99 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      blogs: {
+        Row: {
+          created_at: string | null
+          date: string | null
+          id: string
+          image: string | null
+          title: string
+          url: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          date?: string | null
+          id?: string
+          image?: string | null
+          title: string
+          url?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          date?: string | null
+          id?: string
+          image?: string | null
+          title?: string
+          url?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      certifications: {
+        Row: {
+          certificate_link: string | null
+          created_at: string | null
+          date: string | null
+          id: string
+          image: string | null
+          issuer: string | null
+          title: string
+          user_id: string | null
+        }
+        Insert: {
+          certificate_link?: string | null
+          created_at?: string | null
+          date?: string | null
+          id?: string
+          image?: string | null
+          issuer?: string | null
+          title: string
+          user_id?: string | null
+        }
+        Update: {
+          certificate_link?: string | null
+          created_at?: string | null
+          date?: string | null
+          id?: string
+          image?: string | null
+          issuer?: string | null
+          title?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          image: string | null
+          link: string | null
+          title: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          image?: string | null
+          link?: string | null
+          title: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          image?: string | null
+          link?: string | null
+          title?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

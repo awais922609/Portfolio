@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "./ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const ProjectForm = ({ onClose }: { onClose: () => void }) => {
   const [title, setTitle] = useState("");
@@ -11,29 +12,35 @@ const ProjectForm = ({ onClose }: { onClose: () => void }) => {
   const [link, setLink] = useState("");
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const newProject = {
-      id: Date.now().toString(),
-      title,
-      image: image || "/placeholder.svg",
-      description,
-      link
-    };
+    try {
+      const { error } = await supabase
+        .from('projects')
+        .insert([{
+          title,
+          image: image || "/placeholder.svg",
+          description,
+          link
+        }]);
 
-    // Get existing projects from localStorage
-    const existingProjects = JSON.parse(localStorage.getItem('projects') || '[]');
-    
-    // Add new project
-    localStorage.setItem('projects', JSON.stringify([...existingProjects, newProject]));
+      if (error) throw error;
 
-    toast({
-      title: "Success",
-      description: "Project added successfully!",
-    });
+      toast({
+        title: "Success",
+        description: "Project added successfully!",
+      });
 
-    onClose();
+      onClose();
+    } catch (error) {
+      console.error('Error creating project:', error);
+      toast({
+        title: "Error",
+        description: "Failed to create project",
+        variant: "destructive"
+      });
+    }
   };
 
   return (

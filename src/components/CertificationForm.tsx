@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useToast } from "./ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const CertificationForm = ({ onClose }: { onClose: () => void }) => {
   const [title, setTitle] = useState("");
@@ -10,30 +11,36 @@ const CertificationForm = ({ onClose }: { onClose: () => void }) => {
   const [image, setImage] = useState("");
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const newCertification = {
-      id: Date.now().toString(),
-      title: title || "Untitled Certification",
-      certificateLink,
-      issuer: issuer || "Unknown Issuer",
-      image: image || "/placeholder.svg",
-      date: new Date().toISOString().split('T')[0]
-    };
+    try {
+      const { error } = await supabase
+        .from('certifications')
+        .insert([{
+          title: title || "Untitled Certification",
+          certificate_link: certificateLink,
+          issuer: issuer || "Unknown Issuer",
+          image: image || "/placeholder.svg",
+          date: new Date().toISOString().split('T')[0]
+        }]);
 
-    // Get existing certifications from localStorage
-    const existingCertifications = JSON.parse(localStorage.getItem('certifications') || '[]');
-    
-    // Add new certification
-    localStorage.setItem('certifications', JSON.stringify([...existingCertifications, newCertification]));
+      if (error) throw error;
 
-    toast({
-      title: "Success",
-      description: "Certification added successfully!",
-    });
+      toast({
+        title: "Success",
+        description: "Certification added successfully!",
+      });
 
-    onClose();
+      onClose();
+    } catch (error) {
+      console.error('Error creating certification:', error);
+      toast({
+        title: "Error",
+        description: "Failed to create certification",
+        variant: "destructive"
+      });
+    }
   };
 
   return (
