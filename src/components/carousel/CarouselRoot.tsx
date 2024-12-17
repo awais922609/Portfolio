@@ -1,6 +1,7 @@
 import * as React from "react";
 import useEmblaCarousel, { 
   type UseEmblaCarouselType,
+  type EmblaViewportRefType
 } from "embla-carousel-react";
 import { cn } from "@/lib/utils";
 import { CarouselContext } from "./CarouselContext";
