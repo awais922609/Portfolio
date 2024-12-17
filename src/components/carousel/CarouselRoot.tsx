@@ -94,7 +94,7 @@ const CarouselRoot = React.forwardRef<HTMLDivElement, CarouselProps>(
     return (
       <CarouselContext.Provider
         value={{
-          carouselRef: emblaRef as React.MutableRefObject<HTMLDivElement>,
+          carouselRef: emblaRef,
           api: emblaApi,
           opts,
           orientation,
