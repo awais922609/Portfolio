@@ -32,7 +32,7 @@ const CertificationCard = ({
   } = useSortable({ id });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Transform.toString(transform as any),
     transition,
   };
 
@@ -76,14 +76,19 @@ const CertificationCard = ({
         <h3 className="text-xl font-bold mb-3">{title}</h3>
         <p className="text-muted-foreground mb-4">Issued by: {issuer}</p>
         {certificateLink && (
-          <a
-            href={certificateLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+          <Button 
+            variant="link" 
+            className="p-0 h-auto text-primary hover:text-primary/80"
+            asChild
           >
-            View Certificate →
-          </a>
+            <a
+              href={certificateLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Certificate →
+            </a>
+          </Button>
         )}
       </div>
     </motion.article>
