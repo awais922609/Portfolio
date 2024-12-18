@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { Shield, Terminal, Search } from "lucide-react";
+import { Shield, Terminal, Search, Linkedin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { 
   Carousel, 
@@ -95,6 +95,17 @@ const Hero = () => {
           </Button>
           <Button variant="outline" asChild>
             <Link to="/blog">View Blog</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <a 
+              href="https://www.linkedin.com/in/awais-sajid" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2"
+            >
+              <Linkedin className="h-5 w-5" />
+              Connect on LinkedIn
+            </a>
           </Button>
         </motion.div>
       </div>
