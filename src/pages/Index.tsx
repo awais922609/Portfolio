@@ -6,6 +6,7 @@ import Experience from "../components/Experience";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CertificationCard from "../components/CertificationCard";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -14,13 +15,55 @@ const Index = () => {
   const [certifications, setCertifications] = useState<any[]>([]);
 
   useEffect(() => {
-    const storedBlogs = JSON.parse(localStorage.getItem('blogs') || '[]');
-    const storedProjects = JSON.parse(localStorage.getItem('projects') || '[]');
-    const storedCertifications = JSON.parse(localStorage.getItem('certifications') || '[]');
-    
-    setBlogs(storedBlogs.slice(0, 3));
-    setProjects(storedProjects.slice(0, 3));
-    setCertifications(storedCertifications.slice(0, 3));
+    const fetchData = async () => {
+      try {
+        // Fetch blogs
+        const { data: blogsData, error: blogsError } = await supabase
+          .from('blogs')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(3);
+        
+        if (blogsError) {
+          console.error('Error fetching blogs:', blogsError);
+        } else {
+          console.log('Fetched blogs:', blogsData);
+          setBlogs(blogsData || []);
+        }
+
+        // Fetch projects
+        const { data: projectsData, error: projectsError } = await supabase
+          .from('projects')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(3);
+        
+        if (projectsError) {
+          console.error('Error fetching projects:', projectsError);
+        } else {
+          console.log('Fetched projects:', projectsData);
+          setProjects(projectsData || []);
+        }
+
+        // Fetch certifications
+        const { data: certsData, error: certsError } = await supabase
+          .from('certifications')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(3);
+        
+        if (certsError) {
+          console.error('Error fetching certifications:', certsError);
+        } else {
+          console.log('Fetched certifications:', certsData);
+          setCertifications(certsData || []);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
