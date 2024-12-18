@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CertificationCard from "../components/CertificationCard";
 import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -161,7 +162,16 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {certifications.map((certification) => (
-              <CertificationCard key={certification.id} {...certification} onDelete={() => {}} />
+              <div key={certification.id} className="flex flex-col">
+                <CertificationCard {...certification} onDelete={() => {}} />
+                <Button 
+                  variant="outline"
+                  className="mt-4"
+                  onClick={() => navigate('/certifications')}
+                >
+                  View All Credentials
+                </Button>
+              </div>
             ))}
           </div>
         </div>
