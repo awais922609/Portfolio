@@ -2,7 +2,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
-import { Trash2, GripVertical } from "lucide-react";
+import { Trash2, GripVertical, Linkedin } from "lucide-react";
 import { toast } from "sonner";
 
 interface SortableProjectProps {
@@ -77,16 +77,27 @@ export function SortableProject({ project, onDelete, isAuthenticated }: Sortable
       <div className="p-6">
         <h3 className="text-xl font-bold mb-3">{project.title}</h3>
         <p className="text-muted-foreground mb-4">{project.description}</p>
-        {project.link && (
+        <div className="flex justify-between items-center">
+          {project.link && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:text-primary/80 transition-colors"
+            >
+              View Project →
+            </a>
+          )}
           <a
-            href={project.link}
+            href="https://www.linkedin.com/in/awais-sajid"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary hover:text-primary/80 transition-colors"
+            className="text-primary hover:text-primary/80 transition-colors flex items-center gap-2"
           >
-            View Project →
+            <Linkedin className="h-5 w-5" />
+            Connect on LinkedIn
           </a>
-        )}
+        </div>
       </div>
     </motion.div>
   );
