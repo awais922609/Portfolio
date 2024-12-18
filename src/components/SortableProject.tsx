@@ -44,7 +44,7 @@ const SortableProject = ({
       }`}
       style={{
         ...style,
-        transform: CSS.Transform.toString(style?.transform),
+        transform: CSS.Transform.toString(style?.transform as any),
       }}
     >
       <div className="relative">
@@ -80,9 +80,9 @@ const SortableProject = ({
       <div className="p-6">
         <h3 className="text-xl font-bold mb-3">{title}</h3>
         <p className="text-muted-foreground mb-4">{description}</p>
-        {project.link && (
+        {link && (
           <a
-            href={project.link}
+            href={link}
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary hover:text-primary/80 transition-colors"

@@ -15,7 +15,7 @@ import {
 import ProjectForm from "../components/ProjectForm";
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { SortableProject } from "../components/SortableProject";
+import SortableProject from "../components/SortableProject";
 
 const Projects = () => {
   const [projects, setProjects] = useState<any[]>([]);
@@ -135,8 +135,8 @@ const Projects = () => {
               {projects.map((project) => (
                 <SortableProject
                   key={project.id}
-                  project={project}
-                  onDelete={handleDelete}
+                  {...project}
+                  onDelete={() => handleDelete(project.id)}
                   isAuthenticated={isAuthenticated}
                 />
               ))}
