@@ -7,11 +7,13 @@ const experiences = [
     period: "Sep 2024 – present",
     location: "Islamabad, Pakistan",
     points: [
-      "Implemented Trend Micro server security solutions",
-      "Configured Infoblox DNS solution for security",
-      "Conducted security assessments",
-      "Monitored security alerts and incidents",
-      "Integrated Threat Intelligence solutions"
+      "Monitored and investigated security alerts using Trend Micro Server Security and Infoblox BloxOne Threat Defense", 
+      "Conducted log analysis to investigate incidents and block or allow domains based on company policies", 
+      "Configured and deployed Trend Micro and Infoblox solutions to enhance server and DNS security", 
+      "Provided technical support and troubleshooting for multiple customers", 
+      "Collaborated with teams to integrate security tools seamlessly into existing infrastructures", 
+      "Contributed to the development of a threat-sharing platform to enhance threat intelligence and response", 
+      "Stayed updated on emerging cybersecurity trends and technologies to implement best practices"
     ]
   },
   {
