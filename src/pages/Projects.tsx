@@ -36,13 +36,22 @@ const Projects = () => {
 
   const fetchProjects = async () => {
     try {
+      console.log("Fetching projects...");
       const { data, error } = await supabase
         .from('projects')
         .select('*')
-        .order('position');
+        .order('position', { ascending: true });
 
       if (error) throw error;
-      setProjects(data || []);
+      
+      // If no position is set, set it based on array index
+      const projectsWithPosition = (data || []).map((project, index) => ({
+        ...project,
+        position: project.position ?? index,
+      }));
+      
+      console.log("Fetched projects:", projectsWithPosition);
+      setProjects(projectsWithPosition);
     } catch (error) {
       console.error('Error fetching projects:', error);
       toast({
@@ -64,6 +73,7 @@ const Projects = () => {
     }
 
     try {
+      console.log("Deleting project:", id);
       const { error } = await supabase
         .from('projects')
         .delete()
@@ -71,7 +81,9 @@ const Projects = () => {
 
       if (error) throw error;
 
+      // Update local state after successful deletion
       setProjects(projects.filter(project => project.id !== id));
+      
       toast({
         title: "Success",
         description: "Project deleted successfully!",
@@ -88,8 +100,11 @@ const Projects = () => {
 
   const updatePositions = async (newProjects: any[]) => {
     try {
+      console.log("Updating positions for projects:", newProjects);
+      
       // Update each project's position individually
       for (const [index, project] of newProjects.entries()) {
+        console.log(`Updating position for project ${project.id} to ${index}`);
         const { error } = await supabase
           .from('projects')
           .update({ position: index })
@@ -115,12 +130,12 @@ const Projects = () => {
   const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event;
     
-    if (active.id !== over?.id) {
+    if (over && active.id !== over.id) {
       setProjects((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
-        const newIndex = items.findIndex((item) => item.id === over?.id);
-        const newItems = arrayMove(items, oldIndex, newIndex);
+        const newIndex = items.findIndex((item) => item.id === over.id);
         
+        const newItems = arrayMove(items, oldIndex, newIndex);
         // Update positions in database
         updatePositions(newItems);
         
@@ -161,7 +176,7 @@ const Projects = () => {
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
         >
-          <SortableContext items={projects} strategy={verticalListSortingStrategy}>
+          <SortableContext items={projects.map(p => p.id)} strategy={verticalListSortingStrategy}>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {projects.map((project) => (
                 <SortableProject
