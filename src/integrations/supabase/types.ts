@@ -15,6 +15,7 @@ export type Database = {
           date: string | null
           id: string
           image: string | null
+          position: number | null
           title: string
           url: string | null
           user_id: string | null
@@ -24,6 +25,7 @@ export type Database = {
           date?: string | null
           id?: string
           image?: string | null
+          position?: number | null
           title: string
           url?: string | null
           user_id?: string | null
@@ -33,6 +35,7 @@ export type Database = {
           date?: string | null
           id?: string
           image?: string | null
+          position?: number | null
           title?: string
           url?: string | null
           user_id?: string | null
@@ -47,6 +50,7 @@ export type Database = {
           id: string
           image: string | null
           issuer: string | null
+          position: number | null
           title: string
           user_id: string | null
         }
@@ -57,6 +61,7 @@ export type Database = {
           id?: string
           image?: string | null
           issuer?: string | null
+          position?: number | null
           title: string
           user_id?: string | null
         }
@@ -67,6 +72,7 @@ export type Database = {
           id?: string
           image?: string | null
           issuer?: string | null
+          position?: number | null
           title?: string
           user_id?: string | null
         }
@@ -79,6 +85,7 @@ export type Database = {
           id: string
           image: string | null
           link: string | null
+          position: number | null
           title: string
           user_id: string | null
         }
@@ -88,6 +95,7 @@ export type Database = {
           id?: string
           image?: string | null
           link?: string | null
+          position?: number | null
           title: string
           user_id?: string | null
         }
@@ -97,6 +105,7 @@ export type Database = {
           id?: string
           image?: string | null
           link?: string | null
+          position?: number | null
           title?: string
           user_id?: string | null
         }

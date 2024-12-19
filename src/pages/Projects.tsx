@@ -39,7 +39,7 @@ const Projects = () => {
       const { data, error } = await supabase
         .from('projects')
         .select('*')
-        .order('created_at', { ascending: false });
+        .order('position');  // Changed from created_at to position
 
       if (error) throw error;
       setProjects(data || []);
@@ -86,14 +86,44 @@ const Projects = () => {
     }
   };
 
-  const handleDragEnd = (event: DragEndEvent) => {
+  const updatePositions = async (newProjects: any[]) => {
+    try {
+      // Update positions in database
+      const updates = newProjects.map((project, index) => ({
+        id: project.id,
+        position: index,
+      }));
+
+      const { error } = await supabase
+        .from('projects')
+        .upsert(updates, { onConflict: 'id' });
+
+      if (error) throw error;
+
+      console.log('Positions updated successfully');
+    } catch (error) {
+      console.error('Error updating positions:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update positions",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event;
     
     if (active.id !== over?.id) {
       setProjects((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over?.id);
-        return arrayMove(items, oldIndex, newIndex);
+        const newItems = arrayMove(items, oldIndex, newIndex);
+        
+        // Update positions in database
+        updatePositions(newItems);
+        
+        return newItems;
       });
     }
   };
