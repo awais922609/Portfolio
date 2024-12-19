@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import CertificationCard from "../components/CertificationCard";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { Award } from "lucide-react"; // Adding the Award icon
 
 const Index = () => {
   const navigate = useNavigate();
@@ -164,13 +165,16 @@ const Index = () => {
             {certifications.map((certification) => (
               <div key={certification.id} className="flex flex-col">
                 <CertificationCard {...certification} onDelete={() => {}} />
-                <Button 
-                  variant="outline"
-                  className="mt-4"
-                  onClick={() => navigate('/certifications')}
-                >
-                  View All Credentials
-                </Button>
+                {certification.certificate_link && (
+                  <Button 
+                    variant="outline"
+                    className="mt-4 gap-2"
+                    onClick={() => window.open(certification.certificate_link, '_blank', 'noopener,noreferrer')}
+                  >
+                    <Award className="h-4 w-4" />
+                    View Badge
+                  </Button>
+                )}
               </div>
             ))}
           </div>
