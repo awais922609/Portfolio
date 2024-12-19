@@ -39,7 +39,7 @@ const Projects = () => {
       const { data, error } = await supabase
         .from('projects')
         .select('*')
-        .order('position');  // Changed from created_at to position
+        .order('position');
 
       if (error) throw error;
       setProjects(data || []);
@@ -88,17 +88,18 @@ const Projects = () => {
 
   const updatePositions = async (newProjects: any[]) => {
     try {
-      // Update positions in database
-      const updates = newProjects.map((project, index) => ({
-        id: project.id,
-        position: index,
-      }));
+      // Update each project's position individually
+      for (const [index, project] of newProjects.entries()) {
+        const { error } = await supabase
+          .from('projects')
+          .update({ position: index })
+          .eq('id', project.id);
 
-      const { error } = await supabase
-        .from('projects')
-        .upsert(updates, { onConflict: 'id' });
-
-      if (error) throw error;
+        if (error) {
+          console.error('Error updating position for project:', project.id, error);
+          throw error;
+        }
+      }
 
       console.log('Positions updated successfully');
     } catch (error) {
