@@ -7,13 +7,14 @@ const experiences = [
     period: "Sep 2024 – present",
     location: "Islamabad, Pakistan",
     points: [
-      "Monitored and investigated security alerts using Trend Micro Server Security and Infoblox BloxOne Threat Defense", 
-      "Conducted log analysis to investigate incidents and block or allow domains based on company policies", 
-      "Configured and deployed Trend Micro and Infoblox solutions to enhance server and DNS security", 
-      "Provided technical support and troubleshooting for multiple customers", 
-      "Collaborated with teams to integrate security tools seamlessly into existing infrastructures", 
-      "Contributed to the development of a threat-sharing platform to enhance threat intelligence and response", 
-      "Stayed updated on emerging cybersecurity trends and technologies to implement best practices"
+      "Monitored and investigated security alerts using Trend Micro Server Security and Infoblox BloxOne Threat Defense, identifying and mitigating threats.",
+      "Conducted log analysis to investigate incidents and took action to block or allow domains based on company policies.",
+      "Monitored and investigated security alerts using Trend Micro XDR to mitigate potential threats effectively.",
+      "Designed and implemented multiple incident response playbooks to streamline threat investigation and mitigation processes.",
+      "Leveraged Palo Alto Cortex XSIAM to enhance security operations and detect advanced threats.",
+      "Provided technical support and troubleshooting for multiple customers, resolving issues promptly.",
+      "Collaborated with cross-functional teams to integrate security tools into existing infrastructures with minimal disruption.",
+      "Stayed updated with emerging cybersecurity trends and technologies to implement best practices."
     ]
   },
   {
