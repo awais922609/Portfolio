@@ -23,10 +23,10 @@ const experiences = [
     period: "Feb 2024 – Aug 2024",
     location: "Lahore, PK",
     points: [
-      "Conducted risk assessments",
-      "Developed security awareness training",
-      "Outlined compliance procedures",
-      "Assisted in ISO, SSAE-18, and PCI audits"
+      "Conducted gap and risk assessments, developing and implementing mitigation strategies.",
+      "Delivered information security awareness training to enhance organizational compliance.",
+      "Defined procedures to ensure global compliance with ISO 27001, ISO 27701, and other standards.",
+      "Contributed to SSAE-18, and PCI audits as a junior resource."
     ]
   },
   {
@@ -35,10 +35,11 @@ const experiences = [
     period: "Nov 2023 – Feb 2024",
     location: "Islamabad, Pakistan",
     points: [
-      "Managed company-wide user devices",
-      "Deployed Rapid7 agents",
-      "Implemented access controls",
-      "Updated security policies"
+      "Managed and maintained company-wide user laptops and devices, ensuring optimal performance and user satisfaction.",
+      "Assisted in the deployment of Rapid7 agents, enhancing system security and operational efficiency.",
+      "Conducted in-depth investigations of security incidents using InsightIDR.",
+      "Contributed to optimizing its detection capabilities by fine-tuning InsightIDR Detection Rules.",
+      "Updated security policies for compliance with industry standards."
     ]
   }
 ];
