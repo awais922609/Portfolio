@@ -35,7 +35,6 @@ const ParticleBackground = () => {
             onHover: {
               enable: true,
               mode: "repulse",
-              distance: 100,
             },
             resize: true,
           },
