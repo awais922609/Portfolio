@@ -5,12 +5,12 @@ import Particles from "react-particles";
 
 const ParticleBackground = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
-    console.log("Initializing particles");
+    console.log("Initializing particles with optimized settings");
     await loadFull(engine);
   }, []);
 
   const particlesLoaded = useCallback(async (container: Container | undefined) => {
-    console.log("Particles loaded", container);
+    console.log("Particles loaded with optimized settings", container);
   }, []);
 
   return (
@@ -25,7 +25,7 @@ const ParticleBackground = () => {
             value: "transparent",
           },
         },
-        fpsLimit: 120,
+        fpsLimit: 60,
         interactivity: {
           events: {
             onClick: {
@@ -35,15 +35,16 @@ const ParticleBackground = () => {
             onHover: {
               enable: true,
               mode: "repulse",
+              distance: 100,
             },
             resize: true,
           },
           modes: {
             push: {
-              quantity: 4,
+              quantity: 2,
             },
             repulse: {
-              distance: 200,
+              distance: 100,
               duration: 0.4,
             },
           },
@@ -56,7 +57,7 @@ const ParticleBackground = () => {
             color: "#646cff",
             distance: 150,
             enable: true,
-            opacity: 0.5,
+            opacity: 0.3,
             width: 1,
           },
           move: {
@@ -66,24 +67,24 @@ const ParticleBackground = () => {
               default: "bounce",
             },
             random: false,
-            speed: 2,
+            speed: 1,
             straight: false,
           },
           number: {
             density: {
               enable: true,
-              area: 800,
+              area: 1000,
             },
-            value: 80,
+            value: 40,
           },
           opacity: {
-            value: 0.5,
+            value: 0.3,
           },
           shape: {
             type: "circle",
           },
           size: {
-            value: { min: 1, max: 5 },
+            value: { min: 1, max: 3 },
           },
         },
         detectRetina: true,
