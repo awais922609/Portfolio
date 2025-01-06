@@ -21,7 +21,12 @@ const LoadingFallback = () => (
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground pt-16">
+    <motion.div 
+      className="min-h-screen bg-background text-foreground pt-16"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
       <Suspense fallback={<LoadingFallback />}>
         <ParticleBackground />
         <Hero />
@@ -31,7 +36,7 @@ const Index = () => {
         <FeaturedCertifications />
         <Quote />
       </Suspense>
-    </div>
+    </motion.div>
   );
 };
 

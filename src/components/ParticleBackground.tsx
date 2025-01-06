@@ -25,7 +25,7 @@ const ParticleBackground = () => {
             value: "transparent",
           },
         },
-        fpsLimit: 60,
+        fpsLimit: 30, // Reduced from 60 for better performance
         interactivity: {
           events: {
             onClick: {
@@ -40,7 +40,7 @@ const ParticleBackground = () => {
           },
           modes: {
             push: {
-              quantity: 2,
+              quantity: 1, // Reduced from 2
             },
             repulse: {
               distance: 100,
@@ -66,15 +66,15 @@ const ParticleBackground = () => {
               default: "bounce",
             },
             random: false,
-            speed: 1,
+            speed: 0.8, // Reduced from 1
             straight: false,
           },
           number: {
             density: {
               enable: true,
-              area: 1000,
+              area: 1500, // Increased area to reduce particle density
             },
-            value: 40,
+            value: 30, // Reduced from 40
           },
           opacity: {
             value: 0.3,
@@ -83,10 +83,10 @@ const ParticleBackground = () => {
             type: "circle",
           },
           size: {
-            value: { min: 1, max: 3 },
+            value: { min: 1, max: 2 }, // Reduced max size from 3
           },
         },
-        detectRetina: true,
+        detectRetina: false, // Disabled for better performance
       }}
     />
   );

@@ -6,14 +6,6 @@ import { Shield, Terminal, Search, Linkedin } from "lucide-react";
 import { useEffect, useState, lazy, Suspense } from "react";
 import { Skeleton } from "./ui/skeleton";
 
-// Lazy load the carousel components
-const Carousel = lazy(() => import("./carousel").then(module => ({ default: module.Carousel })));
-const CarouselContent = lazy(() => import("./carousel").then(module => ({ default: module.CarouselContent })));
-const CarouselItem = lazy(() => import("./carousel").then(module => ({ default: module.CarouselItem })));
-const CarouselPrevious = lazy(() => import("./carousel").then(module => ({ default: module.CarouselPrevious })));
-const CarouselNext = lazy(() => import("./carousel").then(module => ({ default: module.CarouselNext })));
-const CarouselDots = lazy(() => import("./carousel").then(module => ({ default: module.CarouselDots })));
-
 const Hero = () => {
   const { isAuthenticated, logout } = useAuth();
   const [projects, setProjects] = useState<any[]>([]);
@@ -25,9 +17,16 @@ const Hero = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const storedProjects = JSON.parse(localStorage.getItem('projects') || '[]');
-        const storedBlogs = JSON.parse(localStorage.getItem('blogs') || '[]');
-        const storedCertifications = JSON.parse(localStorage.getItem('certifications') || '[]');
+        // Use Promise.all for parallel data fetching
+        const [
+          storedProjects,
+          storedBlogs,
+          storedCertifications
+        ] = await Promise.all([
+          JSON.parse(localStorage.getItem('projects') || '[]'),
+          JSON.parse(localStorage.getItem('blogs') || '[]'),
+          JSON.parse(localStorage.getItem('certifications') || '[]')
+        ]);
         
         setProjects(storedProjects);
         setBlogs(storedBlogs);
@@ -64,21 +63,20 @@ const Hero = () => {
             <Skeleton className="h-24 w-2/3 mx-auto" />
           </div>
         ) : (
-          <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
             <motion.h1
+              className="text-5xl md:text-7xl font-bold mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-5xl md:text-7xl font-bold mb-4"
             >
               Awais Sajid
             </motion.h1>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="flex flex-wrap justify-center gap-6 mb-6"
-            >
+            <div className="flex flex-wrap justify-center gap-6 mb-6">
               <div className="flex items-center gap-2">
                 <Shield className="w-6 h-6" />
                 <span className="text-xl">Security Engineer</span>
@@ -91,23 +89,13 @@ const Hero = () => {
                 <Terminal className="w-6 h-6" />
                 <span className="text-xl">Penetration Tester</span>
               </div>
-            </motion.div>
+            </div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
-            >
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               A passionate cybersecurity professional dedicated to protecting digital assets and infrastructure through proactive security measures and continuous monitoring.
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="flex flex-wrap gap-4 justify-center mb-12"
-            >
+            <div className="flex flex-wrap gap-4 justify-center mb-12">
               <Button asChild>
                 <Link to="/projects">View Projects</Link>
               </Button>
@@ -128,8 +116,8 @@ const Hero = () => {
                   Connect on LinkedIn
                 </a>
               </Button>
-            </motion.div>
-          </>
+            </div>
+          </motion.div>
         )}
       </div>
     </section>
