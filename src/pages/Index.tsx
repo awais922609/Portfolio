@@ -1,6 +1,8 @@
 import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
+import SelfDestruct from "@/components/SelfDestruct";
+import BugHunt from "@/components/BugHunt";
 
 // Lazy load components
 const ParticleBackground = lazy(() => import("../components/ParticleBackground"));
@@ -35,6 +37,8 @@ const Index = () => {
         <FeaturedBlogs />
         <FeaturedCertifications />
         <Quote />
+        <SelfDestruct />
+        <BugHunt />
       </Suspense>
     </motion.div>
   );

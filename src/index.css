@@ -73,3 +73,8 @@
   white-space: nowrap;
   animation: typing 3.5s steps(40, end);
 }
+
+@keyframes flash {
+  0%, 100% { background-color: black; }
+  50% { background-color: #ff0000; }
+}
