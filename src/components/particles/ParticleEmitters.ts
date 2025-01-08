@@ -1,4 +1,6 @@
-export const particleEmitters = [
+import type { IEmitter } from "tsparticles-engine";
+
+export const particleEmitters: IEmitter[] = [
   {
     direction: "top-right",
     rate: {

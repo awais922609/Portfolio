@@ -1,4 +1,6 @@
-export const particleConfig = {
+import type { ISourceOptions } from "tsparticles-engine";
+
+export const particleConfig: ISourceOptions = {
   background: {
     color: {
       value: "transparent",
@@ -8,20 +10,36 @@ export const particleConfig = {
   particles: {
     groups: {
       z5000: {
-        number: { value: 70 },
-        zIndex: { value: 5000 }
+        number: {
+          value: 70
+        },
+        zIndex: {
+          value: 5000
+        }
       },
       z7500: {
-        number: { value: 30 },
-        zIndex: { value: 75 }
+        number: {
+          value: 30
+        },
+        zIndex: {
+          value: 75
+        }
       },
       z2500: {
-        number: { value: 50 },
-        zIndex: { value: 25 }
+        number: {
+          value: 50
+        },
+        zIndex: {
+          value: 25
+        }
       },
       z1000: {
-        number: { value: 40 },
-        zIndex: { value: 10 }
+        number: {
+          value: 40
+        },
+        zIndex: {
+          value: 10
+        }
       }
     },
     number: {
@@ -40,12 +58,7 @@ export const particleConfig = {
       }
     },
     shape: {
-      type: ["circle", "triangle", "arrow"],
-      options: {
-        arrow: {
-          heightLoss: 0.5
-        }
-      }
+      type: ["circle", "triangle", "arrow"]
     },
     opacity: {
       value: 0.5,
@@ -100,7 +113,7 @@ export const particleConfig = {
     }
   },
   interactivity: {
-    detectsOn: "window",
+    detectsOn: "window" as const,
     events: {
       onHover: {
         enable: true,
