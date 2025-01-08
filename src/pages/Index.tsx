@@ -24,30 +24,12 @@ const Index = () => {
     <div className="relative min-h-screen bg-black">
       <Suspense fallback={<LoadingFallback />}>
         <ParticleBackground />
-<<<<<<< HEAD
-        <motion.div 
-          className="relative z-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Hero />
-          <Experience />
-          <FeaturedProjects />
-          <FeaturedBlogs />
-          <FeaturedCertifications />
-          <Quote />
-          <SelfDestruct />
-          <BugHunt />
-        </motion.div>
-=======
         <Hero />
         <Experience />
         <FeaturedProjects />
         <FeaturedBlogs />
         <FeaturedCertifications />
         <Quote />
->>>>>>> parent of 6b1d3fb (Add self-destruct button and bug hunt game)
       </Suspense>
     </div>
   );
