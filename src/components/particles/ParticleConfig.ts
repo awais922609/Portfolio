@@ -3,66 +3,70 @@ import type { ISourceOptions } from "tsparticles-engine";
 export const particleConfig: ISourceOptions = {
   background: {
     color: {
-      value: "transparent",
+      value: "#000000",
     },
   },
-  fpsLimit: 30,
+  fpsLimit: 60,
   particles: {
     groups: {
-      z5000: {
-        number: {
-          value: 70
-        },
-        zIndex: {
-          value: 5000
+      matrix: {
+        number: { value: 80 },
+        zIndex: { value: 1 },
+        color: { value: "#00ff41" },
+        shape: { type: "char", options: { char: { value: ["0", "1"] } } },
+        size: { value: 12 },
+        move: {
+          direction: "bottom",
+          speed: 3,
+          straight: true
         }
       },
-      z7500: {
-        number: {
-          value: 30
-        },
-        zIndex: {
-          value: 75
+      nodes: {
+        number: { value: 40 },
+        zIndex: { value: 2 },
+        color: { value: ["#00ff41", "#0FA0CE", "#33C3F0"] },
+        shape: { type: "circle" },
+        size: { value: 3 },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          random: true
         }
       },
-      z2500: {
-        number: {
-          value: 50
-        },
-        zIndex: {
-          value: 25
-        }
-      },
-      z1000: {
-        number: {
-          value: 40
-        },
-        zIndex: {
-          value: 10
+      overlay: {
+        number: { value: 15 },
+        zIndex: { value: 3 },
+        color: { value: "#ffffff" },
+        shape: { type: "polygon", options: { polygon: { sides: 6 } } },
+        opacity: { value: 0.1 },
+        size: { value: 15 },
+        move: {
+          enable: true,
+          speed: 0.5,
+          direction: "none",
+          random: true
         }
       }
     },
     number: {
-      value: 40,
+      value: 0,
       density: {
         enable: true,
         value_area: 800
       }
     },
     color: {
-      value: ["#00ff41", "#008F11"],
+      value: ["#00ff41", "#0FA0CE", "#33C3F0"],
       animation: {
         enable: true,
         speed: 20,
         sync: true
       }
     },
-    shape: {
-      type: ["circle", "triangle", "arrow"]
-    },
     opacity: {
       value: 0.5,
-      random: false,
+      random: true,
       animation: {
         enable: true,
         speed: 0.5,
@@ -85,7 +89,11 @@ export const particleConfig: ISourceOptions = {
       distance: 150,
       color: "#00ff41",
       opacity: 0.2,
-      width: 1
+      width: 1,
+      triangles: {
+        enable: true,
+        opacity: 0.05
+      }
     },
     move: {
       enable: true,
@@ -106,14 +114,10 @@ export const particleConfig: ISourceOptions = {
         rotateX: 600,
         rotateY: 1200
       }
-    },
-    zIndex: {
-      value: 5,
-      opacityRate: 0.5
     }
   },
   interactivity: {
-    detectsOn: "window" as const,
+    detectsOn: "window",
     events: {
       onHover: {
         enable: true,
@@ -143,12 +147,16 @@ export const particleConfig: ISourceOptions = {
         duration: 0.4
       },
       push: {
-        quantity: 1
+        quantity: 4
       },
       remove: {
         quantity: 2
       }
     }
   },
-  detectRetina: false
+  detectRetina: true,
+  fullScreen: {
+    enable: false,
+    zIndex: -1
+  }
 };

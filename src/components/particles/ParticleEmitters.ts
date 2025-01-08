@@ -2,68 +2,54 @@ import type { IEmitter } from "tsparticles-engine";
 
 export const particleEmitters: IEmitter[] = [
   {
-    direction: "top-right",
+    direction: "top",
     rate: {
-      delay: 1,
-      quantity: 1
+      delay: 0.5,
+      quantity: 2
     },
     position: {
       x: 0,
       y: 100
     },
     size: {
-      width: 0,
+      width: 100,
       height: 0
     },
     particles: {
-      shape: {
-        type: "arrow"
-      },
-      size: {
-        value: 3
-      },
+      groups: ["matrix"],
       move: {
-        speed: 5,
+        direction: "bottom",
         straight: true
       },
-      life: {
-        duration: {
-          sync: true,
-          value: 1
-        }
+      opacity: {
+        value: 0.3
+      },
+      size: {
+        value: 12
       }
     }
   },
   {
-    direction: "top-left",
+    direction: "none",
     rate: {
-      delay: 1,
+      delay: 2,
       quantity: 1
     },
     position: {
-      x: 100,
-      y: 100
+      x: 50,
+      y: 50
     },
     size: {
-      width: 0,
-      height: 0
+      width: 100,
+      height: 100
     },
     particles: {
-      shape: {
-        type: "arrow"
+      groups: ["overlay"],
+      opacity: {
+        value: 0.1
       },
       size: {
-        value: 3
-      },
-      move: {
-        speed: 5,
-        straight: true
-      },
-      life: {
-        duration: {
-          sync: true,
-          value: 1
-        }
+        value: { min: 15, max: 30 }
       }
     }
   }
