@@ -1,8 +1,6 @@
 import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
-import SelfDestruct from "@/components/SelfDestruct";
-import BugHunt from "@/components/BugHunt";
 
 // Lazy load components
 const ParticleBackground = lazy(() => import("../components/particles/ParticleBackground"));
@@ -26,6 +24,7 @@ const Index = () => {
     <div className="relative min-h-screen bg-black">
       <Suspense fallback={<LoadingFallback />}>
         <ParticleBackground />
+<<<<<<< HEAD
         <motion.div 
           className="relative z-10"
           initial={{ opacity: 0 }}
@@ -41,6 +40,14 @@ const Index = () => {
           <SelfDestruct />
           <BugHunt />
         </motion.div>
+=======
+        <Hero />
+        <Experience />
+        <FeaturedProjects />
+        <FeaturedBlogs />
+        <FeaturedCertifications />
+        <Quote />
+>>>>>>> parent of 6b1d3fb (Add self-destruct button and bug hunt game)
       </Suspense>
     </div>
   );
