@@ -4,8 +4,8 @@ export const particleEmitters: ISourceOptions["emitters"] = [
   {
     direction: "top",
     rate: {
-      delay: 0.5,
-      quantity: 2
+      delay: 2,
+      quantity: 1
     },
     position: {
       x: 0,
@@ -16,16 +16,33 @@ export const particleEmitters: ISourceOptions["emitters"] = [
       height: 0
     },
     particles: {
-      groups: ["matrix"],
-      move: {
-        direction: "bottom",
-        straight: true
+      shape: {
+        type: "char",
+        options: {
+          char: {
+            value: ["SCANNING", "ENCRYPTED"]
+          }
+        }
       },
-      opacity: {
-        value: 0.3
+      color: {
+        value: "#00ff41"
       },
       size: {
         value: 12
+      },
+      move: {
+        direction: "top",
+        straight: true,
+        speed: 2
+      },
+      opacity: {
+        value: 0.5,
+        animation: {
+          enable: true,
+          speed: 0.5,
+          minimumValue: 0.1,
+          sync: false
+        }
       }
     }
   }

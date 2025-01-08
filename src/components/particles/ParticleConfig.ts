@@ -5,6 +5,10 @@ export const particleConfig: ISourceOptions = {
     color: {
       value: "transparent",
     },
+    image: "radial-gradient(#00ff4133 1px, transparent 1px)",
+    position: "50% 50%",
+    repeat: "repeat",
+    size: "20px 20px",
   },
   fullScreen: {
     enable: true,
@@ -13,46 +17,68 @@ export const particleConfig: ISourceOptions = {
   fpsLimit: 60,
   particles: {
     groups: {
-      matrix: {
-        number: { value: 80 },
-        zIndex: { value: 1 },
+      nodes: {
+        number: { value: 15 },
+        zIndex: { value: 2 },
         color: { value: "#00ff41" },
-        shape: { type: "char", options: { char: { value: ["0", "1"] } } },
-        size: { value: 12 },
+        shape: { type: "circle" },
+        size: { value: 4 },
+        opacity: { value: 0.8 },
         move: {
-          direction: "bottom",
-          speed: 3,
-          straight: true
+          enable: true,
+          speed: 0.5,
+          direction: "none",
+          random: true,
+          outModes: "bounce"
         }
       },
-      nodes: {
-        number: { value: 40 },
-        zIndex: { value: 2 },
-        color: { value: ["#00ff41", "#0FA0CE", "#33C3F0"] },
-        shape: { type: "circle" },
-        size: { value: 3 },
+      text: {
+        number: { value: 5 },
+        zIndex: { value: 1 },
+        color: { value: "#00ff41" },
+        shape: {
+          type: "char",
+          options: {
+            char: {
+              value: ["BREACH DETECTED", "SCANNING", "ENCRYPTED", "SECURE", "ACCESS DENIED"]
+            }
+          }
+        },
+        size: { value: 12 },
+        opacity: { 
+          value: 0.5,
+          animation: {
+            enable: true,
+            speed: 0.5,
+            minimumValue: 0.1,
+            sync: false
+          }
+        },
         move: {
           enable: true,
           speed: 1,
-          direction: "none",
-          random: true
+          direction: "right",
+          straight: true
         }
       }
     },
     number: {
-      value: 0,
+      value: 80,
       density: {
         enable: true,
         value_area: 800
       }
     },
     color: {
-      value: ["#00ff41", "#0FA0CE", "#33C3F0"],
+      value: "#00ff41",
       animation: {
         enable: true,
         speed: 20,
         sync: true
       }
+    },
+    shape: {
+      type: ["circle", "triangle"],
     },
     opacity: {
       value: 0.5,
@@ -87,7 +113,7 @@ export const particleConfig: ISourceOptions = {
     },
     move: {
       enable: true,
-      speed: 2,
+      speed: 1,
       direction: "none",
       random: true,
       straight: false,
@@ -111,7 +137,7 @@ export const particleConfig: ISourceOptions = {
     events: {
       onHover: {
         enable: true,
-        mode: "repulse"
+        mode: ["grab", "bubble"]
       },
       onClick: {
         enable: true,
@@ -128,19 +154,15 @@ export const particleConfig: ISourceOptions = {
       },
       bubble: {
         distance: 200,
-        size: 5,
+        size: 12,
         duration: 2,
-        opacity: 0.5
-      },
-      repulse: {
-        distance: 100,
-        duration: 0.4
+        opacity: 0.8,
+        color: {
+          value: "#00ff41"
+        }
       },
       push: {
         quantity: 4
-      },
-      remove: {
-        quantity: 2
       }
     }
   },

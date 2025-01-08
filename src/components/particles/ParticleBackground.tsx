@@ -7,25 +7,28 @@ import { particleEmitters } from "./ParticleEmitters";
 
 const ParticleBackground = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
-    console.log("Initializing matrix particle system");
+    console.log("Initializing cybersecurity particle system");
     await loadFull(engine);
   }, []);
 
   const particlesLoaded = useCallback(async (container: Container | undefined) => {
-    console.log("Matrix particles loaded", container);
+    console.log("Cybersecurity particles loaded", container);
   }, []);
 
   return (
-    <Particles
-      className="absolute inset-0 -z-10"
-      id="tsparticles"
-      init={particlesInit}
-      loaded={particlesLoaded}
-      options={{
-        ...particleConfig,
-        emitters: particleEmitters
-      }}
-    />
+    <div className="relative w-full h-full">
+      <div className="absolute inset-0 bg-grid-pattern opacity-10" />
+      <Particles
+        className="absolute inset-0 -z-10"
+        id="tsparticles"
+        init={particlesInit}
+        loaded={particlesLoaded}
+        options={{
+          ...particleConfig,
+          emitters: particleEmitters
+        }}
+      />
+    </div>
   );
 };
 
