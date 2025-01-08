@@ -6,6 +6,10 @@ export const particleConfig: ISourceOptions = {
       value: "#000000",
     },
   },
+  fullScreen: {
+    enable: false,
+    zIndex: -1
+  },
   fpsLimit: 60,
   particles: {
     groups: {
@@ -24,7 +28,7 @@ export const particleConfig: ISourceOptions = {
       nodes: {
         number: { value: 40 },
         zIndex: { value: 2 },
-        color: { value: ["#00ff41", "#0FA0CE", "#33C3F0"] },
+        color: { value: ["#00ff41", "#008F11"] },
         shape: { type: "circle" },
         size: { value: 3 },
         move: {
@@ -33,31 +37,17 @@ export const particleConfig: ISourceOptions = {
           direction: "none",
           random: true
         }
-      },
-      overlay: {
-        number: { value: 15 },
-        zIndex: { value: 3 },
-        color: { value: "#ffffff" },
-        shape: { type: "polygon", options: { polygon: { sides: 6 } } },
-        opacity: { value: 0.1 },
-        size: { value: 15 },
-        move: {
-          enable: true,
-          speed: 0.5,
-          direction: "none",
-          random: true
-        }
       }
     },
     number: {
-      value: 0,
+      value: 80,
       density: {
         enable: true,
         value_area: 800
       }
     },
     color: {
-      value: ["#00ff41", "#0FA0CE", "#33C3F0"],
+      value: "#00ff41",
       animation: {
         enable: true,
         speed: 20,
@@ -89,11 +79,7 @@ export const particleConfig: ISourceOptions = {
       distance: 150,
       color: "#00ff41",
       opacity: 0.2,
-      width: 1,
-      triangles: {
-        enable: true,
-        opacity: 0.05
-      }
+      width: 1
     },
     move: {
       enable: true,
@@ -154,9 +140,5 @@ export const particleConfig: ISourceOptions = {
       }
     }
   },
-  detectRetina: true,
-  fullScreen: {
-    enable: false,
-    zIndex: -1
-  }
+  detectRetina: true
 };

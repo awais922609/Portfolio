@@ -28,29 +28,5 @@ export const particleEmitters: ISourceOptions["emitters"] = [
         value: 12
       }
     }
-  },
-  {
-    direction: "none",
-    rate: {
-      delay: 2,
-      quantity: 1
-    },
-    position: {
-      x: 50,
-      y: 50
-    },
-    size: {
-      width: 100,
-      height: 100
-    },
-    particles: {
-      groups: ["overlay"],
-      opacity: {
-        value: 0.1
-      },
-      size: {
-        value: { min: 15, max: 30 }
-      }
-    }
   }
 ];

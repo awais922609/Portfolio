@@ -5,7 +5,7 @@ import SelfDestruct from "@/components/SelfDestruct";
 import BugHunt from "@/components/BugHunt";
 
 // Lazy load components
-const ParticleBackground = lazy(() => import("../components/ParticleBackground"));
+const ParticleBackground = lazy(() => import("../components/particles/ParticleBackground"));
 const Hero = lazy(() => import("../components/Hero"));
 const Experience = lazy(() => import("../components/Experience"));
 const FeaturedProjects = lazy(() => import("../components/FeaturedProjects"));
