@@ -29,8 +29,12 @@ const SelfDestruct = () => {
       document.body.style.animation = "";
       toast({
         title: "System Protected",
-        description: "Phew, crisis averted! Security protocols activated.",
-        icon: <ShieldCheck className="h-5 w-5 text-green-500" />,
+        description: (
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="h-5 w-5 text-green-500" />
+            <span>Phew, crisis averted! Security protocols activated.</span>
+          </div>
+        ),
       });
     }, 2000);
   };
