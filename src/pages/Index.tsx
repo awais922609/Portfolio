@@ -23,24 +23,26 @@ const LoadingFallback = () => (
 
 const Index = () => {
   return (
-    <motion.div 
-      className="min-h-screen bg-background text-foreground pt-16"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
-    >
+    <div className="relative min-h-screen bg-black">
       <Suspense fallback={<LoadingFallback />}>
         <ParticleBackground />
-        <Hero />
-        <Experience />
-        <FeaturedProjects />
-        <FeaturedBlogs />
-        <FeaturedCertifications />
-        <Quote />
-        <SelfDestruct />
-        <BugHunt />
+        <motion.div 
+          className="relative z-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <Hero />
+          <Experience />
+          <FeaturedProjects />
+          <FeaturedBlogs />
+          <FeaturedCertifications />
+          <Quote />
+          <SelfDestruct />
+          <BugHunt />
+        </motion.div>
       </Suspense>
-    </motion.div>
+    </div>
   );
 };
 

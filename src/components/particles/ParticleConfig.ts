@@ -3,11 +3,11 @@ import type { ISourceOptions } from "tsparticles-engine";
 export const particleConfig: ISourceOptions = {
   background: {
     color: {
-      value: "#000000",
+      value: "transparent",
     },
   },
   fullScreen: {
-    enable: false,
+    enable: true,
     zIndex: -1
   },
   fpsLimit: 60,
@@ -28,7 +28,7 @@ export const particleConfig: ISourceOptions = {
       nodes: {
         number: { value: 40 },
         zIndex: { value: 2 },
-        color: { value: ["#00ff41", "#008F11"] },
+        color: { value: ["#00ff41", "#0FA0CE", "#33C3F0"] },
         shape: { type: "circle" },
         size: { value: 3 },
         move: {
@@ -40,14 +40,14 @@ export const particleConfig: ISourceOptions = {
       }
     },
     number: {
-      value: 80,
+      value: 0,
       density: {
         enable: true,
         value_area: 800
       }
     },
     color: {
-      value: "#00ff41",
+      value: ["#00ff41", "#0FA0CE", "#33C3F0"],
       animation: {
         enable: true,
         speed: 20,
@@ -79,7 +79,11 @@ export const particleConfig: ISourceOptions = {
       distance: 150,
       color: "#00ff41",
       opacity: 0.2,
-      width: 1
+      width: 1,
+      triangles: {
+        enable: true,
+        opacity: 0.05
+      }
     },
     move: {
       enable: true,
