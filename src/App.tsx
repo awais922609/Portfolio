@@ -9,6 +9,7 @@ import Blog from "./pages/Blog";
 import Projects from "./pages/Projects";
 import Certifications from "./pages/Certifications";
 import Login from "./pages/Login";
+import NotFound from "./pages/404";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/blog" element={<Blog />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/certifications" element={<Certifications />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

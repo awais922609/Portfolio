@@ -73,3 +73,29 @@
   white-space: nowrap;
   animation: typing 3.5s steps(40, end);
 }
+
+[data-section] {
+  position: relative;
+}
+
+[data-section]::before {
+  content: "You need root privileges to access this... jk, just click.";
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  background: #ea384c;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+  white-space: nowrap;
+  z-index: 50;
+}
+
+[data-section]:hover::before {
+  opacity: 1;
+}
