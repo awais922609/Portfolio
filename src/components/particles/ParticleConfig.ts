@@ -1,4 +1,6 @@
-export const particleConfig = {
+import type { ISourceOptions } from "tsparticles-engine";
+
+export const particleConfig: ISourceOptions = {
   background: {
     color: {
       value: "transparent",
@@ -54,7 +56,7 @@ export const particleConfig = {
     move: {
       enable: true,
       speed: 2,
-      direction: "none",
+      direction: "none" as const,
       random: true,
       straight: false,
       outModes: {
@@ -72,7 +74,7 @@ export const particleConfig = {
     }
   },
   interactivity: {
-    detectsOn: "window" as const,  // Fixed: Using a valid literal type
+    detectsOn: "window" as const,
     events: {
       onHover: {
         enable: true,

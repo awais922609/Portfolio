@@ -2,6 +2,9 @@ import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 import ParticleBackground from "@/components/particles/ParticleBackground";
+import BinaryTime from "@/components/cybersecurity/BinaryTime";
+import HackerConsole from "@/components/cybersecurity/HackerConsole";
+import HackerJargon from "@/components/cybersecurity/HackerJargon";
 
 // Lazy load components
 const Hero = lazy(() => import("../components/Hero"));
@@ -23,6 +26,8 @@ const Index = () => {
   return (
     <div className="relative min-h-screen bg-black">
       <ParticleBackground />
+      <BinaryTime />
+      <HackerJargon />
       <div className="relative z-10">
         <Suspense fallback={<LoadingFallback />}>
           <Hero />
@@ -33,6 +38,7 @@ const Index = () => {
           <Quote />
         </Suspense>
       </div>
+      <HackerConsole />
     </div>
   );
 };
