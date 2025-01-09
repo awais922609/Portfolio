@@ -1,9 +1,9 @@
 import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
+import ParticleBackground from "@/components/particles/ParticleBackground";
 
 // Lazy load components
-const ParticleBackground = lazy(() => import("../components/particles/ParticleBackground"));
 const Hero = lazy(() => import("../components/Hero"));
 const Experience = lazy(() => import("../components/Experience"));
 const FeaturedProjects = lazy(() => import("../components/FeaturedProjects"));
@@ -22,15 +22,17 @@ const LoadingFallback = () => (
 const Index = () => {
   return (
     <div className="relative min-h-screen bg-black">
-      <Suspense fallback={<LoadingFallback />}>
-        <ParticleBackground />
-        <Hero />
-        <Experience />
-        <FeaturedProjects />
-        <FeaturedBlogs />
-        <FeaturedCertifications />
-        <Quote />
-      </Suspense>
+      <ParticleBackground />
+      <div className="relative z-10">
+        <Suspense fallback={<LoadingFallback />}>
+          <Hero />
+          <Experience />
+          <FeaturedProjects />
+          <FeaturedBlogs />
+          <FeaturedCertifications />
+          <Quote />
+        </Suspense>
+      </div>
     </div>
   );
 };

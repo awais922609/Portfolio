@@ -3,11 +3,10 @@ import { loadFull } from "tsparticles";
 import type { Container, Engine } from "tsparticles-engine";
 import Particles from "react-particles";
 import { particleConfig } from "./ParticleConfig";
-import { particleEmitters } from "./ParticleEmitters";
 
 const ParticleBackground = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
-    console.log("Initializing cybersecurity particle system");
+    console.log("Initializing particles with cybersecurity theme");
     await loadFull(engine);
   }, []);
 
@@ -16,19 +15,13 @@ const ParticleBackground = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-full">
-      <div className="absolute inset-0 bg-grid-pattern opacity-10" />
-      <Particles
-        className="absolute inset-0 -z-10"
-        id="tsparticles"
-        init={particlesInit}
-        loaded={particlesLoaded}
-        options={{
-          ...particleConfig,
-          emitters: particleEmitters
-        }}
-      />
-    </div>
+    <Particles
+      className="fixed inset-0 -z-10"
+      id="tsparticles"
+      init={particlesInit}
+      loaded={particlesLoaded}
+      options={particleConfig}
+    />
   );
 };
 

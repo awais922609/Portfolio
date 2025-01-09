@@ -1,76 +1,20 @@
-import type { ISourceOptions } from "tsparticles-engine";
-
-export const particleConfig: ISourceOptions = {
+export const particleConfig = {
   background: {
     color: {
       value: "transparent",
     },
-    image: "radial-gradient(#00ff4133 1px, transparent 1px)",
-    position: "50% 50%",
-    repeat: "repeat",
-    size: "20px 20px",
   },
-  fullScreen: {
-    enable: true,
-    zIndex: -1
-  },
-  fpsLimit: 60,
+  fpsLimit: 30,
   particles: {
-    groups: {
-      nodes: {
-        number: { value: 15 },
-        zIndex: { value: 2 },
-        color: { value: "#00ff41" },
-        shape: { type: "circle" },
-        size: { value: 4 },
-        opacity: { value: 0.8 },
-        move: {
-          enable: true,
-          speed: 0.5,
-          direction: "none",
-          random: true,
-          outModes: "bounce"
-        }
-      },
-      text: {
-        number: { value: 5 },
-        zIndex: { value: 1 },
-        color: { value: "#00ff41" },
-        shape: {
-          type: "char",
-          options: {
-            char: {
-              value: ["BREACH DETECTED", "SCANNING", "ENCRYPTED", "SECURE", "ACCESS DENIED"]
-            }
-          }
-        },
-        size: { value: 12 },
-        opacity: { 
-          value: 0.5,
-          animation: {
-            enable: true,
-            speed: 0.5,
-            minimumValue: 0.1,
-            sync: false
-          }
-        },
-        move: {
-          enable: true,
-          speed: 1,
-          direction: "right",
-          straight: true
-        }
-      }
-    },
     number: {
-      value: 80,
+      value: 40,
       density: {
         enable: true,
         value_area: 800
       }
     },
     color: {
-      value: "#00ff41",
+      value: ["#00ff41", "#008F11"],
       animation: {
         enable: true,
         speed: 20,
@@ -82,7 +26,7 @@ export const particleConfig: ISourceOptions = {
     },
     opacity: {
       value: 0.5,
-      random: true,
+      random: false,
       animation: {
         enable: true,
         speed: 0.5,
@@ -105,31 +49,26 @@ export const particleConfig: ISourceOptions = {
       distance: 150,
       color: "#00ff41",
       opacity: 0.2,
-      width: 1,
-      triangles: {
-        enable: true,
-        opacity: 0.05
-      }
+      width: 1
     },
     move: {
       enable: true,
-      speed: 1,
+      speed: 2,
       direction: "none",
       random: true,
       straight: false,
       outModes: {
         default: "bounce"
       },
-      trail: {
-        enable: true,
-        length: 4,
-        fillColor: "#000000"
-      },
       attract: {
         enable: true,
         rotateX: 600,
         rotateY: 1200
       }
+    },
+    zIndex: {
+      value: -1,
+      opacityRate: 0.5
     }
   },
   interactivity: {
@@ -137,7 +76,7 @@ export const particleConfig: ISourceOptions = {
     events: {
       onHover: {
         enable: true,
-        mode: ["grab", "bubble"]
+        mode: "repulse"
       },
       onClick: {
         enable: true,
@@ -146,25 +85,14 @@ export const particleConfig: ISourceOptions = {
       resize: true
     },
     modes: {
-      grab: {
-        distance: 150,
-        links: {
-          opacity: 0.5
-        }
-      },
-      bubble: {
-        distance: 200,
-        size: 12,
-        duration: 2,
-        opacity: 0.8,
-        color: {
-          value: "#00ff41"
-        }
+      repulse: {
+        distance: 100,
+        duration: 0.4
       },
       push: {
         quantity: 4
       }
     }
   },
-  detectRetina: true
+  detectRetina: false
 };
