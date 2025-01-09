@@ -3,7 +3,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import ParticleBackground from "@/components/particles/ParticleBackground";
 import HackerJargon from "@/components/cybersecurity/HackerJargon";
 import LoadingAnimation from "@/components/cybersecurity/LoadingAnimation";
-import CommandLine from "@/components/cybersecurity/CommandLine";
 import BinaryGenerator from "@/components/cybersecurity/BinaryGenerator";
 
 // Lazy load components
@@ -28,7 +27,6 @@ const Index = () => {
       <ParticleBackground />
       <LoadingAnimation />
       <HackerJargon />
-      <BinaryGenerator />
       <div className="relative z-10">
         <Suspense fallback={<LoadingFallback />}>
           <Hero />
@@ -39,7 +37,6 @@ const Index = () => {
           <Quote />
         </Suspense>
       </div>
-      <CommandLine />
     </div>
   );
 };

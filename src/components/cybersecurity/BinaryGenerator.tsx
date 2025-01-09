@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
@@ -14,7 +13,7 @@ const BinaryGenerator = () => {
   return (
     <Button
       onClick={generateBinary}
-      className="fixed top-4 right-4 glass-card hover:bg-primary/20"
+      className="fixed top-16 right-4 glass-card hover:bg-primary/20"
       variant="outline"
     >
       Generate Binary

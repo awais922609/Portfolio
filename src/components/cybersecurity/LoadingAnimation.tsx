@@ -16,9 +16,9 @@ const LoadingAnimation = () => {
       if (currentStep < steps.length - 1) {
         setCurrentStep((prev) => prev + 1);
       } else {
-        setTimeout(() => setIsVisible(false), 1000);
+        setTimeout(() => setIsVisible(false), 500);
       }
-    }, 1000);
+    }, 500); // Reduced from 1000ms to 500ms
 
     return () => clearTimeout(timer);
   }, [currentStep]);
@@ -38,7 +38,7 @@ const LoadingAnimation = () => {
             key={step}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.5 }}
+            transition={{ delay: index * 0.25 }} // Reduced from 0.5s to 0.25s
             className="flex items-center space-x-2"
           >
             <span className="text-xl">&gt;</span>
