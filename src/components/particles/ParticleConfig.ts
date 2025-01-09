@@ -72,7 +72,7 @@ export const particleConfig = {
     }
   },
   interactivity: {
-    detectsOn: "window",
+    detectsOn: "window" as const,  // Fixed: Using a valid literal type
     events: {
       onHover: {
         enable: true,
