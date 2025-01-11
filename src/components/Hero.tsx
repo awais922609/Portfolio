@@ -5,7 +5,6 @@ import { useAuth } from "../contexts/AuthContext";
 import { Shield, Terminal, Search, Linkedin, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Skeleton } from "./ui/skeleton";
-import { useToast } from "@/hooks/use-toast";
 
 const Hero = () => {
   const { isAuthenticated, logout } = useAuth();
@@ -13,7 +12,6 @@ const Hero = () => {
   const [blogs, setBlogs] = useState<any[]>([]);
   const [certifications, setCertifications] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { toast } = useToast();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,33 +42,19 @@ const Hero = () => {
 
   return (
     <section className="min-h-[80vh] flex items-center justify-center relative">
-      <div className="absolute top-4 right-4 space-y-2">
+      <div className="absolute top-4 right-4">
         {isAuthenticated ? (
-          <Button variant="outline" onClick={logout} className="glow-on-hover w-full">
+          <Button variant="outline" onClick={logout} className="glow-on-hover">
             Logout
           </Button>
         ) : (
-          <Button variant="outline" asChild className="glow-on-hover w-full">
+          <Button variant="outline" asChild className="glow-on-hover">
             <Link to="/login">Login</Link>
           </Button>
         )}
-        <Button
-          variant="outline"
-          className="glow-on-hover w-full"
-          onClick={() => {
-            const binary = Array.from({ length: 8 }, () => Math.round(Math.random())).join("");
-            toast({
-              title: "Yes, it's all random. No, it's not a secret code.",
-              description: binary,
-              duration: 3000,
-            });
-          }}
-        >
-          Generate Binary
-        </Button>
       </div>
 
-      <div className="container mx-auto px-4 text-center">
+      <div className="container mx-auto px-4 text-center mt-16 md:mt-0">
         {isLoading ? (
           <div className="space-y-4">
             <Skeleton className="h-12 w-3/4 mx-auto animate-pulse" />
