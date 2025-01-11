@@ -20,26 +20,61 @@ const ParticleBackground = () => {
       init={particlesInit}
       loaded={particlesLoaded}
       options={{
+        fullScreen: {
+          enable: false,
+          zIndex: -1
+        },
         background: {
           color: {
             value: "#000000",
           },
+          opacity: 1
         },
         fpsLimit: 60,
         particles: {
+          number: {
+            value: 50,
+            density: {
+              enable: true,
+              value_area: 800
+            }
+          },
           color: {
-            value: ["#00ff41", "#0077ff", "#00ffff"],
+            value: ["#00ff41", "#00ffff", "#0077ff"],
             animation: {
               enable: true,
-              speed: 2,
+              speed: 1,
+              sync: false
+            }
+          },
+          shape: {
+            type: "circle"
+          },
+          opacity: {
+            value: 0.5,
+            random: true,
+            animation: {
+              enable: true,
+              speed: 0.5,
+              minimumValue: 0.1,
+              sync: false
+            }
+          },
+          size: {
+            value: 3,
+            random: true,
+            animation: {
+              enable: true,
+              speed: 1,
+              minimumValue: 0.5,
               sync: false
             }
           },
           links: {
-            color: "#00ff41",
-            distance: 150,
             enable: true,
-            opacity: 0.3,
+            distance: 150,
+            color: "#00ff41",
+            opacity: 0.2,
             width: 1,
             triangles: {
               enable: true,
@@ -48,51 +83,27 @@ const ParticleBackground = () => {
           },
           move: {
             enable: true,
-            speed: 1,
+            speed: 0.5,
             direction: "none",
             random: true,
             straight: false,
             outModes: {
               default: "bounce"
             },
+            trail: {
+              enable: true,
+              length: 3,
+              fillColor: "#000000"
+            },
             attract: {
               enable: true,
               rotateX: 600,
               rotateY: 1200
             }
-          },
-          number: {
-            density: {
-              enable: true,
-              area: 800
-            },
-            value: 80
-          },
-          opacity: {
-            value: 0.5,
-            random: false,
-            animation: {
-              enable: true,
-              speed: 0.5,
-              minimumValue: 0.1,
-              sync: false
-            }
-          },
-          shape: {
-            type: "circle"
-          },
-          size: {
-            value: 3,
-            random: true,
-            animation: {
-              enable: true,
-              speed: 2,
-              minimumValue: 0.1,
-              sync: false
-            }
           }
         },
         interactivity: {
+          detectsOn: "window",
           events: {
             onHover: {
               enable: true,
@@ -106,21 +117,19 @@ const ParticleBackground = () => {
           },
           modes: {
             grab: {
-              distance: 140,
+              distance: 200,
               links: {
-                opacity: 0.5
+                opacity: 0.4,
+                color: "#00ffff"
               }
             },
             push: {
-              quantity: 4
+              quantity: 3
             }
           }
         },
         detectRetina: true,
-        fullScreen: {
-          enable: false,
-          zIndex: -1
-        }
+        smooth: true
       }}
     />
   );
