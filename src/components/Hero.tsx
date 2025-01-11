@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { Shield, Terminal, Search, Linkedin, ChevronDown } from "lucide-react";
+import { Shield, Terminal, Search, Linkedin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Skeleton } from "./ui/skeleton";
 
@@ -135,15 +135,6 @@ const Hero = () => {
                   Connect on LinkedIn
                 </a>
               </Button>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-subtle"
-            >
-              <ChevronDown className="w-8 h-8 text-primary" />
             </motion.div>
           </motion.div>
         )}
