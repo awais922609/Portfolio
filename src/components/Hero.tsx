@@ -5,6 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Shield, Terminal, Search, Linkedin, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Skeleton } from "./ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
 
 const Hero = () => {
   const { isAuthenticated, logout } = useAuth();
@@ -12,6 +13,7 @@ const Hero = () => {
   const [blogs, setBlogs] = useState<any[]>([]);
   const [certifications, setCertifications] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { toast } = useToast();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,7 +59,8 @@ const Hero = () => {
           className="glow-on-hover w-full"
           onClick={() => {
             const binary = Array.from({ length: 8 }, () => Math.round(Math.random())).join("");
-            toast("Yes, it's all random. No, it's not a secret code.", {
+            toast({
+              title: "Yes, it's all random. No, it's not a secret code.",
               description: binary,
               duration: 3000,
             });

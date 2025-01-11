@@ -122,14 +122,13 @@
 
 /* Project card hover effect */
 .project-card {
-  @apply relative overflow-hidden group;
+  @apply relative overflow-hidden;
 }
 
 .project-card-overlay {
   @apply absolute inset-0 bg-black/80 opacity-0 
          flex items-center justify-center transition-all duration-300
-         group-hover:opacity-100 transform translate-y-full 
-         group-hover:translate-y-0;
+         transform translate-y-full;
 }
 
 /* Animated icons */
@@ -140,7 +139,7 @@
 
 /* Easter egg animation */
 .easter-egg {
-  @apply hidden group-hover:block absolute top-1/2 left-1/2 
+  @apply hidden absolute top-1/2 left-1/2 
          -translate-x-1/2 -translate-y-1/2 text-primary 
          animate-bounce-subtle;
 }
