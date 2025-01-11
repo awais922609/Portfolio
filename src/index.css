@@ -38,7 +38,8 @@
 }
 
 .glass-card {
-  @apply bg-black/80 backdrop-blur-md border border-primary/30 shadow-lg shadow-primary/20;
+  @apply bg-black/80 backdrop-blur-md border border-primary/30 shadow-lg shadow-primary/20 
+         transition-all duration-300 hover:shadow-primary/40 hover:border-primary/50;
 }
 
 .section-padding {
@@ -46,11 +47,23 @@
 }
 
 .hover-scale {
-  @apply transition-transform duration-300 hover:scale-105;
+  @apply transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20;
 }
 
 .text-gradient {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+}
+
+.interactive-link {
+  @apply relative inline-block transition-all duration-300
+         after:content-[''] after:absolute after:w-full after:scale-x-0 
+         after:h-0.5 after:bottom-0 after:left-0 after:bg-primary 
+         after:origin-bottom-right after:transition-transform after:duration-300 
+         hover:after:scale-x-100 hover:after:origin-bottom-left;
+}
+
+.glow-on-hover {
+  @apply transition-all duration-300 hover:text-primary hover:shadow-[0_0_10px_rgba(0,255,65,0.5)];
 }
 
 @keyframes blink {
@@ -98,4 +111,36 @@
 
 [data-section]:hover::before {
   opacity: 1;
+}
+
+/* Custom cursor styles */
+.custom-cursor {
+  @apply fixed pointer-events-none z-50 w-6 h-6 rounded-full 
+         mix-blend-difference border-2 border-primary 
+         transition-transform duration-200 ease-out;
+}
+
+/* Project card hover effect */
+.project-card {
+  @apply relative overflow-hidden group;
+}
+
+.project-card-overlay {
+  @apply absolute inset-0 bg-black/80 opacity-0 
+         flex items-center justify-center transition-all duration-300
+         group-hover:opacity-100 transform translate-y-full 
+         group-hover:translate-y-0;
+}
+
+/* Animated icons */
+.icon-hover {
+  @apply transition-transform duration-300 hover:scale-110 
+         hover:rotate-12 hover:text-primary;
+}
+
+/* Easter egg animation */
+.easter-egg {
+  @apply hidden group-hover:block absolute top-1/2 left-1/2 
+         -translate-x-1/2 -translate-y-1/2 text-primary 
+         animate-bounce-subtle;
 }
