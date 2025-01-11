@@ -26,14 +26,14 @@ const ParticleBackground = () => {
         },
         background: {
           color: {
-            value: "#000000",
+            value: "#0a0a0a",
           },
-          opacity: 1
+          opacity: 0.8
         },
         fpsLimit: 60,
         particles: {
           number: {
-            value: 50,
+            value: 80,
             density: {
               enable: true,
               value_area: 800
@@ -43,7 +43,7 @@ const ParticleBackground = () => {
             value: ["#00ff41", "#00ffff", "#0077ff"],
             animation: {
               enable: true,
-              speed: 1,
+              speed: 2,
               sync: false
             }
           },
@@ -51,17 +51,17 @@ const ParticleBackground = () => {
             type: "circle"
           },
           opacity: {
-            value: 0.5,
+            value: 0.8,
             random: true,
             animation: {
               enable: true,
               speed: 0.5,
-              minimumValue: 0.1,
+              minimumValue: 0.3,
               sync: false
             }
           },
           size: {
-            value: 3,
+            value: 2.5,
             random: true,
             animation: {
               enable: true,
@@ -74,16 +74,16 @@ const ParticleBackground = () => {
             enable: true,
             distance: 150,
             color: "#00ff41",
-            opacity: 0.2,
+            opacity: 0.4,
             width: 1,
             triangles: {
               enable: true,
-              opacity: 0.05
+              opacity: 0.1
             }
           },
           move: {
             enable: true,
-            speed: 0.5,
+            speed: 0.8,
             direction: "none",
             random: true,
             straight: false,
@@ -92,8 +92,8 @@ const ParticleBackground = () => {
             },
             trail: {
               enable: true,
-              length: 3,
-              fillColor: "#000000"
+              length: 5,
+              fillColor: "#0a0a0a"
             },
             attract: {
               enable: true,
@@ -119,12 +119,12 @@ const ParticleBackground = () => {
             grab: {
               distance: 200,
               links: {
-                opacity: 0.4,
+                opacity: 0.8,
                 color: "#00ffff"
               }
             },
             push: {
-              quantity: 3
+              quantity: 4
             }
           }
         },
