@@ -65,7 +65,7 @@ const Hero = () => {
       transition: {
         duration: 2,
         repeat: Infinity,
-        repeatType: "reverse"
+        repeatType: "reverse" as const // Fixed the type error by explicitly typing as "reverse"
       }
     }
   };
