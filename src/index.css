@@ -51,19 +51,19 @@
 }
 
 .text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] to-[#DAA520];
 }
 
 .interactive-link {
   @apply relative inline-block transition-all duration-300
          after:content-[''] after:absolute after:w-full after:scale-x-0 
-         after:h-0.5 after:bottom-0 after:left-0 after:bg-primary 
+         after:h-0.5 after:bottom-0 after:left-0 after:bg-[#FFD700] 
          after:origin-bottom-right after:transition-transform after:duration-300 
          hover:after:scale-x-100 hover:after:origin-bottom-left;
 }
 
 .glow-on-hover {
-  @apply transition-all duration-300 hover:text-primary hover:shadow-[0_0_10px_rgba(0,255,65,0.5)];
+  @apply transition-all duration-300 hover:text-[#FFD700] hover:shadow-[0_0_10px_rgba(255,215,0,0.5)];
 }
 
 @keyframes blink {
@@ -97,8 +97,8 @@
   top: -2rem;
   left: 50%;
   transform: translateX(-50%) translateY(-100%);
-  background: #ea384c;
-  color: white;
+  background: #FFD700;
+  color: black;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
   font-size: 0.875rem;
@@ -113,14 +113,12 @@
   opacity: 1;
 }
 
-/* Custom cursor styles */
 .custom-cursor {
   @apply fixed pointer-events-none z-50 w-6 h-6 rounded-full 
-         mix-blend-difference border-2 border-primary 
+         mix-blend-difference border-2 border-[#FFD700] 
          transition-transform duration-200 ease-out;
 }
 
-/* Project card hover effect */
 .project-card {
   @apply relative overflow-hidden;
 }
@@ -131,15 +129,13 @@
          transform translate-y-full;
 }
 
-/* Animated icons */
 .icon-hover {
   @apply transition-transform duration-300 hover:scale-110 
-         hover:rotate-12 hover:text-primary;
+         hover:rotate-12 hover:text-[#FFD700];
 }
 
-/* Easter egg animation */
 .easter-egg {
   @apply hidden absolute top-1/2 left-1/2 
-         -translate-x-1/2 -translate-y-1/2 text-primary 
+         -translate-x-1/2 -translate-y-1/2 text-[#FFD700] 
          animate-bounce-subtle;
 }

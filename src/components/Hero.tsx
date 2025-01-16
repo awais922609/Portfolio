@@ -52,6 +52,24 @@ const Hero = () => {
     }
   };
 
+  const glowAnimation = {
+    initial: { textShadow: "0 0 0px #FFD700" },
+    animate: {
+      textShadow: [
+        "0 0 4px #FFD700",
+        "0 0 8px #DAA520",
+        "0 0 12px #FFD700",
+        "0 0 8px #DAA520",
+        "0 0 4px #FFD700"
+      ],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        repeatType: "reverse"
+      }
+    }
+  };
+
   const titleAnimation = {
     initial: { opacity: 0, x: -20 },
     animate: (index: number) => ({
@@ -110,15 +128,8 @@ const Hero = () => {
               className="relative inline-block"
             >
               <motion.h1
+                variants={glowAnimation}
                 className="text-5xl md:text-7xl font-bold mb-4 text-gradient"
-                animate={{
-                  textShadow: ["0 0 4px #FFD700", "0 0 8px #DAA520", "0 0 4px #FFD700"],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatType: "reverse"
-                }}
               >
                 Awais Sajid
               </motion.h1>
@@ -135,7 +146,11 @@ const Hero = () => {
                   variants={titleAnimation}
                   custom={index}
                   className="flex items-center gap-2 icon-hover"
-                  whileHover={{ scale: 1.05, rotate: 2 }}
+                  whileHover={{ 
+                    scale: 1.05, 
+                    textShadow: "0 0 8px #FFD700",
+                    transition: { duration: 0.2 }
+                  }}
                 >
                   <Icon className="w-6 h-6" />
                   <span className="text-xl">{text}</span>
@@ -146,6 +161,10 @@ const Hero = () => {
             <motion.p 
               variants={descriptionAnimation}
               className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+              whileHover={{
+                textShadow: "0 0 4px rgba(255, 215, 0, 0.5)",
+                transition: { duration: 0.2 }
+              }}
             >
               A passionate cybersecurity professional dedicated to protecting digital assets and infrastructure through proactive security measures and continuous monitoring.
             </motion.p>

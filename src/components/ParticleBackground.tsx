@@ -5,12 +5,12 @@ import Particles from "react-particles";
 
 const ParticleBackground = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
-    console.log("Initializing particles with cybersecurity theme");
+    console.log("Initializing golden matrix particles");
     await loadFull(engine);
   }, []);
 
   const particlesLoaded = useCallback(async (container: Container | undefined) => {
-    console.log("Cybersecurity particles loaded", container);
+    console.log("Golden matrix particles loaded", container);
   }, []);
 
   return (
@@ -20,77 +20,48 @@ const ParticleBackground = () => {
       init={particlesInit}
       loaded={particlesLoaded}
       options={{
+        fullScreen: {
+          enable: false,
+          zIndex: -1
+        },
         background: {
           color: {
-            value: "transparent",
+            value: "#0a0a0a",
           },
+          opacity: 0.9
         },
-        fpsLimit: 30,
+        fpsLimit: 60,
         particles: {
-          groups: {
-            z5000: {
-              number: {
-                value: 70
-              },
-              zIndex: {
-                value: 5000
-              }
-            },
-            z7500: {
-              number: {
-                value: 30
-              },
-              zIndex: {
-                value: 75
-              }
-            },
-            z2500: {
-              number: {
-                value: 50
-              },
-              zIndex: {
-                value: 25
-              }
-            },
-            z1000: {
-              number: {
-                value: 40
-              },
-              zIndex: {
-                value: 10
-              }
-            }
-          },
           number: {
-            value: 40,
+            value: 60,
             density: {
               enable: true,
-              value_area: 800
+              value_area: 900
             }
           },
           color: {
-            value: ["#00ff41", "#008F11"],
+            value: ["#FFD700", "#DAA520", "#FFA500"],
             animation: {
               enable: true,
-              speed: 20,
-              sync: true
+              speed: 1,
+              sync: false
             }
           },
           shape: {
-            type: ["circle", "triangle", "arrow"],
+            type: ["circle", "triangle"],
             options: {
-              arrow: {
-                heightLoss: 0.5
+              triangle: {
+                sides: 3
               }
             }
           },
           opacity: {
-            value: 0.5,
-            random: false,
+            value: 0.8,
+            random: true,
             animation: {
               enable: true,
-              speed: 0.5,
-              minimumValue: 0.1,
+              speed: 0.3,
+              minimumValue: 0.4,
               sync: false
             }
           },
@@ -99,21 +70,25 @@ const ParticleBackground = () => {
             random: true,
             animation: {
               enable: true,
-              speed: 2,
-              minimumValue: 0.1,
+              speed: 0.8,
+              minimumValue: 0.5,
               sync: false
             }
           },
           links: {
             enable: true,
             distance: 150,
-            color: "#00ff41",
-            opacity: 0.2,
-            width: 1
+            color: "#DAA520",
+            opacity: 0.5,
+            width: 1,
+            triangles: {
+              enable: true,
+              opacity: 0.2
+            }
           },
           move: {
             enable: true,
-            speed: 2,
+            speed: 0.8,
             direction: "none",
             random: true,
             straight: false,
@@ -122,18 +97,14 @@ const ParticleBackground = () => {
             },
             trail: {
               enable: true,
-              length: 4,
-              fillColor: "#000000"
+              length: 3,
+              fillColor: "#0a0a0a"
             },
             attract: {
               enable: true,
               rotateX: 600,
               rotateY: 1200
             }
-          },
-          zIndex: {
-            value: 5,
-            opacityRate: 0.5
           }
         },
         interactivity: {
@@ -141,7 +112,7 @@ const ParticleBackground = () => {
           events: {
             onHover: {
               enable: true,
-              mode: "repulse"
+              mode: "grab"
             },
             onClick: {
               enable: true,
@@ -151,98 +122,19 @@ const ParticleBackground = () => {
           },
           modes: {
             grab: {
-              distance: 150,
+              distance: 200,
               links: {
-                opacity: 0.5
+                opacity: 0.7,
+                color: "#FFD700"
               }
             },
-            bubble: {
-              distance: 200,
-              size: 5,
-              duration: 2,
-              opacity: 0.5
-            },
-            repulse: {
-              distance: 100,
-              duration: 0.4
-            },
             push: {
-              quantity: 1
-            },
-            remove: {
-              quantity: 2
+              quantity: 3
             }
           }
         },
-        detectRetina: false,
-        emitters: [
-          {
-            direction: "top-right",
-            rate: {
-              delay: 1,
-              quantity: 1
-            },
-            position: {
-              x: 0,
-              y: 100
-            },
-            size: {
-              width: 0,
-              height: 0
-            },
-            particles: {
-              shape: {
-                type: "arrow"
-              },
-              size: {
-                value: 3
-              },
-              move: {
-                speed: 5,
-                straight: true
-              },
-              life: {
-                duration: {
-                  sync: true,
-                  value: 1
-                }
-              }
-            }
-          },
-          {
-            direction: "top-left",
-            rate: {
-              delay: 1,
-              quantity: 1
-            },
-            position: {
-              x: 100,
-              y: 100
-            },
-            size: {
-              width: 0,
-              height: 0
-            },
-            particles: {
-              shape: {
-                type: "arrow"
-              },
-              size: {
-                value: 3
-              },
-              move: {
-                speed: 5,
-                straight: true
-              },
-              life: {
-                duration: {
-                  sync: true,
-                  value: 1
-                }
-              }
-            }
-          }
-        ]
+        detectRetina: true,
+        smooth: true
       }}
     />
   );
