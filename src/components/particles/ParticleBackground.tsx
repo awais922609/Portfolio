@@ -5,12 +5,12 @@ import Particles from "react-particles";
 
 const ParticleBackground = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
-    console.log("Initializing matrix-style particles");
+    console.log("Initializing golden matrix particles");
     await loadFull(engine);
   }, []);
 
   const particlesLoaded = useCallback(async (container: Container | undefined) => {
-    console.log("Matrix particles loaded", container);
+    console.log("Golden matrix particles loaded", container);
   }, []);
 
   return (
@@ -26,24 +26,24 @@ const ParticleBackground = () => {
         },
         background: {
           color: {
-            value: "#0a0a0a",
+            value: "#1a1814", // Dark golden-brown background
           },
-          opacity: 0.8
+          opacity: 0.9
         },
         fpsLimit: 60,
         particles: {
           number: {
-            value: 80,
+            value: 60, // Reduced for better performance
             density: {
               enable: true,
-              value_area: 800
+              value_area: 900
             }
           },
           color: {
-            value: ["#00ff41", "#00ffff", "#0077ff"],
+            value: ["#FFD700", "#DAA520", "#FFA500"], // Golden colors
             animation: {
               enable: true,
-              speed: 2,
+              speed: 1,
               sync: false
             }
           },
@@ -51,21 +51,21 @@ const ParticleBackground = () => {
             type: "circle"
           },
           opacity: {
-            value: 0.8,
+            value: 0.6,
             random: true,
             animation: {
               enable: true,
-              speed: 0.5,
-              minimumValue: 0.3,
+              speed: 0.3,
+              minimumValue: 0.2,
               sync: false
             }
           },
           size: {
-            value: 2.5,
+            value: 2,
             random: true,
             animation: {
               enable: true,
-              speed: 1,
+              speed: 0.8,
               minimumValue: 0.5,
               sync: false
             }
@@ -73,8 +73,8 @@ const ParticleBackground = () => {
           links: {
             enable: true,
             distance: 150,
-            color: "#00ff41",
-            opacity: 0.4,
+            color: "#DAA520", // Golden links
+            opacity: 0.3,
             width: 1,
             triangles: {
               enable: true,
@@ -83,7 +83,7 @@ const ParticleBackground = () => {
           },
           move: {
             enable: true,
-            speed: 0.8,
+            speed: 0.6, // Slower, more elegant movement
             direction: "none",
             random: true,
             straight: false,
@@ -92,8 +92,8 @@ const ParticleBackground = () => {
             },
             trail: {
               enable: true,
-              length: 5,
-              fillColor: "#0a0a0a"
+              length: 3,
+              fillColor: "#1a1814"
             },
             attract: {
               enable: true,
@@ -119,12 +119,12 @@ const ParticleBackground = () => {
             grab: {
               distance: 200,
               links: {
-                opacity: 0.8,
-                color: "#00ffff"
+                opacity: 0.7,
+                color: "#FFD700" // Brighter golden color on interaction
               }
             },
             push: {
-              quantity: 4
+              quantity: 3 // Reduced for better performance
             }
           }
         },
