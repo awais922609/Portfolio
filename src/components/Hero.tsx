@@ -40,6 +40,44 @@ const Hero = () => {
     fetchData();
   }, []);
 
+  const nameAnimation = {
+    initial: { opacity: 0, y: 20 },
+    animate: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const titleAnimation = {
+    initial: { opacity: 0, x: -20 },
+    animate: (index: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        delay: 0.2 + index * 0.1,
+        ease: "easeOut"
+      }
+    })
+  };
+
+  const descriptionAnimation = {
+    initial: { opacity: 0, scale: 0.95 },
+    animate: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        delay: 0.4,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
     <section className="min-h-[80vh] flex items-center justify-center relative">
       <div className="absolute top-4 right-4">
@@ -63,57 +101,60 @@ const Hero = () => {
           </div>
         ) : (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
+            initial="initial"
+            animate="animate"
             className="space-y-8"
           >
-            <motion.h1
-              className="text-5xl md:text-7xl font-bold mb-4 text-gradient"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+            <motion.div
+              variants={nameAnimation}
+              className="relative inline-block"
             >
-              Awais Sajid
-            </motion.h1>
+              <motion.h1
+                className="text-5xl md:text-7xl font-bold mb-4 text-gradient"
+                animate={{
+                  textShadow: ["0 0 4px #FFD700", "0 0 8px #DAA520", "0 0 4px #FFD700"],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+              >
+                Awais Sajid
+              </motion.h1>
+            </motion.div>
 
             <div className="flex flex-wrap justify-center gap-6 mb-6">
-              <motion.div 
-                className="flex items-center gap-2 icon-hover"
-                whileHover={{ scale: 1.05 }}
-              >
-                <Shield className="w-6 h-6" />
-                <span className="text-xl">Security Engineer</span>
-              </motion.div>
-              <motion.div 
-                className="flex items-center gap-2 icon-hover"
-                whileHover={{ scale: 1.05 }}
-              >
-                <Search className="w-6 h-6" />
-                <span className="text-xl">SOC Analyst</span>
-              </motion.div>
-              <motion.div 
-                className="flex items-center gap-2 icon-hover"
-                whileHover={{ scale: 1.05 }}
-              >
-                <Terminal className="w-6 h-6" />
-                <span className="text-xl">Penetration Tester</span>
-              </motion.div>
+              {[
+                { icon: Shield, text: "Security Engineer" },
+                { icon: Search, text: "SOC Analyst" },
+                { icon: Terminal, text: "Penetration Tester" }
+              ].map(({ icon: Icon, text }, index) => (
+                <motion.div
+                  key={text}
+                  variants={titleAnimation}
+                  custom={index}
+                  className="flex items-center gap-2 icon-hover"
+                  whileHover={{ scale: 1.05, rotate: 2 }}
+                >
+                  <Icon className="w-6 h-6" />
+                  <span className="text-xl">{text}</span>
+                </motion.div>
+              ))}
             </div>
 
             <motion.p 
+              variants={descriptionAnimation}
               className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
             >
               A passionate cybersecurity professional dedicated to protecting digital assets and infrastructure through proactive security measures and continuous monitoring.
             </motion.p>
 
             <motion.div 
               className="flex flex-wrap gap-4 justify-center mb-12"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
             >
               <Button asChild className="hover-scale glow-on-hover">
                 <Link to="/projects">View Projects</Link>
