@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -87,6 +88,32 @@
   animation: typing 3.5s steps(40, end);
 }
 
+@keyframes cyberpulse {
+  0%, 100% { 
+    box-shadow: 0 0 5px rgba(0, 255, 65, 0.5), 0 0 10px rgba(0, 255, 65, 0.2);
+  }
+  50% { 
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.8), 0 0 20px rgba(0, 255, 65, 0.4);
+  }
+}
+
+.cyber-glow {
+  animation: cyberpulse 2s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  10% { opacity: 0.8; }
+  20% { opacity: 1; }
+  40% { opacity: 0.9; }
+  60% { opacity: 1; }
+  80% { opacity: 0.8; }
+}
+
+.text-flicker {
+  animation: flicker 5s infinite;
+}
+
 [data-section] {
   position: relative;
 }
@@ -131,11 +158,83 @@
 
 .icon-hover {
   @apply transition-transform duration-300 hover:scale-110 
-         hover:rotate-12 hover:text-[#FFD700];
+         hover:rotate-3 hover:text-[#FFD700];
 }
 
 .easter-egg {
   @apply hidden absolute top-1/2 left-1/2 
          -translate-x-1/2 -translate-y-1/2 text-[#FFD700] 
          animate-bounce-subtle;
+}
+
+.digital-scanline {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 255, 65, 0.08);
+  opacity: 0.3;
+  pointer-events: none;
+  overflow: hidden;
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes scanline {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+/* Matrix effect */
+.matrix-rain {
+  @apply fixed inset-0 pointer-events-none;
+  font-family: monospace;
+  font-size: 18px;
+  color: #00FF41;
+  opacity: 0.05;
+  z-index: -1;
+}
+
+/* Data grid patterns */
+.data-grid {
+  background-image: 
+    linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Neon text effect */
+.neon-text {
+  text-shadow: 
+    0 0 5px rgba(0, 255, 65, 0.8),
+    0 0 10px rgba(0, 255, 65, 0.5),
+    0 0 15px rgba(0, 255, 65, 0.3);
+}
+
+/* Card hover effects */
+.cyber-card {
+  @apply relative overflow-hidden bg-black/60 border border-primary/20 transition-all duration-300;
+}
+
+.cyber-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    rgba(0, 255, 65, 0.1), 
+    transparent
+  );
+  transition: left 0.7s;
+}
+
+.cyber-card:hover::before {
+  left: 100%;
 }
