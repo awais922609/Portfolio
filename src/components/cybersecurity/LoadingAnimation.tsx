@@ -17,7 +17,7 @@ const LoadingAnimation = () => {
   ];
 
   useEffect(() => {
-    // Simulate terminal typing
+    // Simulate terminal typing with faster speed
     let currentText = "";
     let messageIndex = 0;
     let charIndex = 0;
@@ -34,30 +34,30 @@ const LoadingAnimation = () => {
           messageIndex++;
           setTimeout(() => {
             setLoadingStep(prev => prev + 1);
-          }, 200);
+          }, 100); // Reduced from 200ms to 100ms
         }
       } else {
         clearInterval(typingInterval);
       }
-    }, 50);
+    }, 25); // Reduced from 50ms to 25ms for faster typing
 
-    // Loading percentage animation
+    // Accelerated loading percentage animation
     let percentage = 0;
     const percentageInterval = setInterval(() => {
       if (percentage < 100) {
-        percentage += Math.floor(Math.random() * 5) + 1;
+        percentage += Math.floor(Math.random() * 10) + 5; // Faster increments
         percentage = Math.min(percentage, 100);
         setLoadingPercentage(percentage);
       } else {
         clearInterval(percentageInterval);
-        setTimeout(() => setIsVisible(false), 500);
+        setTimeout(() => setIsVisible(false), 300); // Reduced from 500ms to 300ms
       }
-    }, 100);
+    }, 50); // Reduced from 100ms to 50ms
 
-    // Fallback timer to ensure the loading screen eventually disappears
+    // Shorter fallback timer
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, 6000);
+    }, 3000); // Reduced from 6000ms to 3000ms
 
     return () => {
       clearInterval(typingInterval);
@@ -118,7 +118,7 @@ const LoadingAnimation = () => {
             className="bg-[#00FF41] h-2 rounded-full"
             initial={{ width: 0 }}
             animate={{ width: `${loadingPercentage}%` }}
-            transition={{ type: "spring", stiffness: 50 }}
+            transition={{ type: "spring", stiffness: 100 }} // Increased stiffness from 50 to 100
           ></motion.div>
         </div>
         

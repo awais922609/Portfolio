@@ -6,7 +6,6 @@ import HackerJargon from "@/components/cybersecurity/HackerJargon";
 import LoadingAnimation from "@/components/cybersecurity/LoadingAnimation";
 import BinaryGenerator from "@/components/cybersecurity/BinaryGenerator";
 import { motion } from "framer-motion";
-import CommandLine from "@/components/cybersecurity/CommandLine";
 
 // Lazy load components
 const Hero = lazy(() => import("../components/Hero"));
@@ -39,10 +38,10 @@ const Index = () => {
   const [sectionsLoaded, setSectionsLoaded] = useState(false);
 
   useEffect(() => {
-    // Delay showing sections to enhance loading experience
+    // Shortened delay to make loading faster
     const timer = setTimeout(() => {
       setSectionsLoaded(true);
-    }, 1500);
+    }, 500); // Reduced from 1500ms to 500ms
     
     return () => clearTimeout(timer);
   }, []);
@@ -53,7 +52,6 @@ const Index = () => {
       <LoadingAnimation />
       <HackerJargon />
       <BinaryGenerator />
-      <CommandLine />
       
       <motion.div
         className="relative z-10"
@@ -63,7 +61,7 @@ const Index = () => {
           hidden: {},
           visible: {
             transition: {
-              staggerChildren: 0.3
+              staggerChildren: 0.2 // Reduced from 0.3 to 0.2 for faster transitions
             }
           }
         }}
