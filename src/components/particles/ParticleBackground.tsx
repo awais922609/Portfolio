@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 const ParticleBackground = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isInitialized, setIsInitialized] = useState(false);
+  const [dataPackets, setDataPackets] = useState<{ x: number, y: number, size: number, speed: number, angle: number }[]>([]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -19,10 +20,59 @@ const ParticleBackground = () => {
 
     window.addEventListener('mousemove', handleMouseMove);
     
+    // Initialize data packets
+    const initialPackets = Array(20).fill(0).map(() => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      size: Math.random() * 4 + 2,
+      speed: Math.random() * 2 + 1,
+      angle: Math.random() * Math.PI * 2
+    }));
+    
+    setDataPackets(initialPackets);
+    
+    // Data packet animation loop
+    const animateDataPackets = () => {
+      setDataPackets(prev => prev.map(packet => {
+        // Move packets in their direction
+        let newX = packet.x + Math.cos(packet.angle) * packet.speed;
+        let newY = packet.y + Math.sin(packet.angle) * packet.speed;
+        
+        // If near mouse position, adjust trajectory slightly
+        const distToMouse = Math.sqrt(
+          Math.pow(newX - mousePosition.x, 2) + 
+          Math.pow(newY - mousePosition.y, 2)
+        );
+        
+        if (distToMouse < 150) {
+          // Gently attract toward mouse
+          const angle = Math.atan2(mousePosition.y - newY, mousePosition.x - newX);
+          packet.angle = packet.angle * 0.95 + angle * 0.05;
+        }
+        
+        // Wrap around screen edges
+        if (newX < 0) newX = window.innerWidth;
+        if (newX > window.innerWidth) newX = 0;
+        if (newY < 0) newY = window.innerHeight;
+        if (newY > window.innerHeight) newY = 0;
+        
+        return {
+          ...packet,
+          x: newX,
+          y: newY
+        };
+      }));
+      
+      requestAnimationFrame(animateDataPackets);
+    };
+    
+    const animationFrame = requestAnimationFrame(animateDataPackets);
+    
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrame);
     };
-  }, []);
+  }, [mousePosition]);
 
   const particlesInit = useCallback(async (engine: Engine) => {
     console.log("Initializing golden matrix particles");
@@ -179,6 +229,24 @@ const ParticleBackground = () => {
         animate="animate"
       />
       
+      {/* Data packets visualization */}
+      <div className="absolute inset-0 -z-8 overflow-hidden pointer-events-none">
+        {dataPackets.map((packet, index) => (
+          <div 
+            key={index}
+            className="absolute rounded-full bg-[#00FF41] opacity-70"
+            style={{
+              left: `${packet.x}px`,
+              top: `${packet.y}px`,
+              width: `${packet.size}px`,
+              height: `${packet.size}px`,
+              boxShadow: `0 0 ${packet.size * 2}px #00FF41`,
+              transition: 'all 0.1s linear'
+            }}
+          />
+        ))}
+      </div>
+      
       {/* Digital scanlines */}
       <div className="absolute inset-0 -z-8 overflow-hidden pointer-events-none">
         {[...Array(5)].map((_, index) => (
@@ -207,6 +275,9 @@ const ParticleBackground = () => {
           transition={{ duration: 0.3 }}
         />
       )}
+      
+      {/* Network Map Component */}
+      <NetworkMap />
     </>
   );
 };

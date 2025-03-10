@@ -35,8 +35,24 @@ const sectionVariants = {
 
 const Index = () => {
   const [sectionsLoaded, setSectionsLoaded] = useState(false);
+  const [preloadedComponents, setPreloadedComponents] = useState(false);
 
+  // Preload components immediately but only display after loading animation
   useEffect(() => {
+    // Start preloading components immediately
+    Promise.all([
+      import("../components/Hero"),
+      import("../components/Experience"),
+      import("../components/FeaturedProjects"),
+      import("../components/FeaturedBlogs"),
+      import("../components/FeaturedCertifications"),
+      import("../components/Quote")
+    ]).then(() => {
+      setPreloadedComponents(true);
+      console.log("All components preloaded successfully");
+    });
+    
+    // Keep initial loading animation at 1500ms
     const timer = setTimeout(() => {
       setSectionsLoaded(true);
     }, 1500);
