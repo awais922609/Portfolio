@@ -4,6 +4,7 @@ import { loadFull } from "tsparticles";
 import type { Container, Engine } from "tsparticles-engine";
 import Particles from "react-particles";
 import { motion } from "framer-motion";
+import NetworkMap from "./NetworkMap";
 
 const ParticleBackground = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
