@@ -1,4 +1,3 @@
-
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import ParticleBackground from "@/components/particles/ParticleBackground";
@@ -29,7 +28,7 @@ const sectionVariants = {
     opacity: 1, 
     y: 0,
     transition: {
-      duration: 0.6
+      duration: 0.4
     }
   }
 };
@@ -38,10 +37,9 @@ const Index = () => {
   const [sectionsLoaded, setSectionsLoaded] = useState(false);
 
   useEffect(() => {
-    // Shortened delay to make loading faster
     const timer = setTimeout(() => {
       setSectionsLoaded(true);
-    }, 500); // Reduced from 1500ms to 500ms
+    }, 1500);
     
     return () => clearTimeout(timer);
   }, []);
@@ -61,7 +59,7 @@ const Index = () => {
           hidden: {},
           visible: {
             transition: {
-              staggerChildren: 0.2 // Reduced from 0.3 to 0.2 for faster transitions
+              staggerChildren: 0.1
             }
           }
         }}

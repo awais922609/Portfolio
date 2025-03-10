@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -34,30 +33,32 @@ const LoadingAnimation = () => {
           messageIndex++;
           setTimeout(() => {
             setLoadingStep(prev => prev + 1);
-          }, 100); // Reduced from 200ms to 100ms
+          }, 80); // Reduced from 100ms to 80ms
         }
       } else {
         clearInterval(typingInterval);
       }
-    }, 25); // Reduced from 50ms to 25ms for faster typing
+    }, 20); // Reduced from 25ms to 20ms for faster typing
 
-    // Accelerated loading percentage animation
+    // Adjust loading percentage to complete in ~1500ms
     let percentage = 0;
     const percentageInterval = setInterval(() => {
       if (percentage < 100) {
-        percentage += Math.floor(Math.random() * 10) + 5; // Faster increments
+        // Calibrate to reach 100% in roughly 1500ms (1.5s)
+        percentage += Math.floor(Math.random() * 7) + 3;
         percentage = Math.min(percentage, 100);
         setLoadingPercentage(percentage);
       } else {
         clearInterval(percentageInterval);
-        setTimeout(() => setIsVisible(false), 300); // Reduced from 500ms to 300ms
+        // Keep the full 1500ms loading experience before hiding
+        setTimeout(() => setIsVisible(false), 100);
       }
-    }, 50); // Reduced from 100ms to 50ms
+    }, 75); // Adjusted timing
 
-    // Shorter fallback timer
+    // Keep fallback timer at 1500ms + buffer
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, 3000); // Reduced from 6000ms to 3000ms
+    }, 2000); // Ensure it disappears after loading
 
     return () => {
       clearInterval(typingInterval);
@@ -118,7 +119,7 @@ const LoadingAnimation = () => {
             className="bg-[#00FF41] h-2 rounded-full"
             initial={{ width: 0 }}
             animate={{ width: `${loadingPercentage}%` }}
-            transition={{ type: "spring", stiffness: 100 }} // Increased stiffness from 50 to 100
+            transition={{ type: "spring", stiffness: 150 }} // Increased stiffness for faster animation
           ></motion.div>
         </div>
         
